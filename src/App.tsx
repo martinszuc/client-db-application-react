@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Container, Typography } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2', // Customize your primary color
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ThemeProvider theme={theme}>
+        <Container maxWidth="sm" style={{ textAlign: 'center', marginTop: '50px' }}>
+          <Typography variant="h2" color="primary" gutterBottom>
+            Hello World
+          </Typography>
+          <Typography variant="h5">
+            Welcome to your new PWA built with React, TypeScript, and Material UI!
+          </Typography>
+        </Container>
+      </ThemeProvider>
   );
 }
 
