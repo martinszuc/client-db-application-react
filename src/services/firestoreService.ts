@@ -26,8 +26,14 @@ const servicePhotosCollection = collection(db, 'service_photos');
 
 // Client Functions
 export const addClient = async (client: Omit<Client, 'id'>) => {
-    const docRef = await addDoc(clientsCollection, client);
-    return docRef.id;
+    try {
+        const docRef = await addDoc(clientsCollection, client);
+        console.log("Client added with ID: ", docRef.id);  // Log success
+        return docRef.id;
+    } catch (error) {
+        console.error("Error adding client: ", error);  // Log any error
+        throw error;  // Re-throw error for handling in the calling component
+    }
 };
 
 export const getClients = async (): Promise<Client[]> => {
@@ -47,8 +53,14 @@ export const deleteClient = async (id: string) => {
 
 // Service Functions
 export const addService = async (service: Omit<Service, 'id'>) => {
-    const docRef = await addDoc(servicesCollection, service);
-    return docRef.id;
+    try {
+        const docRef = await addDoc(servicesCollection, service);
+        console.log("Service added with ID: ", docRef.id);  // Log success
+        return docRef.id;
+    } catch (error) {
+        console.error("Error adding service: ", error);  // Log any error
+        throw error;  // Re-throw error for handling in the calling component
+    }
 };
 
 export const getServices = async (): Promise<Service[]> => {
