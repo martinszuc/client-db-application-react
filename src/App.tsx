@@ -34,8 +34,12 @@ const App: React.FC = () => {
 };
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
-    const { currentUser } = React.useContext(AuthContext);
-    return currentUser ? children : <Navigate to="/login" />;
+    const { currentUser, isAdmin } = React.useContext(AuthContext);
+
+    if (!currentUser) return <Navigate to="/login" />;
+    if (!isAdmin) return <Navigate to="/not-authorized" />;
+
+    return children;
 };
 
 // MainApp includes the bottom navigation and the main content
