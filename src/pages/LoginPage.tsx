@@ -6,9 +6,9 @@ const LoginPage: React.FC = () => {
     const handleLogin = async () => {
         try {
             await signInWithGoogle();
-            // Redirect to dashboard or handle post-login actions
+            console.log("Successfully signed in!");
         } catch (error) {
-            console.error('Authentication error:', error);
+            console.error('Authentication error:', error); // Log the error for debugging
         }
     };
 
