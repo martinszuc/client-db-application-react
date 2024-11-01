@@ -65,7 +65,14 @@ export const addService = async (service: Omit<Service, 'id'>) => {
 
 export const getServices = async (): Promise<Service[]> => {
     const querySnapshot = await getDocs(servicesCollection);
-    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Service));
+    return querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+            id: doc.id,
+            ...data,
+            date: data.date.toDate(),  // Convert Firestore Timestamp to JavaScript Date
+        } as Service;
+    });
 };
 
 export const getServicesForClient = async (clientId: string): Promise<Service[]> => {

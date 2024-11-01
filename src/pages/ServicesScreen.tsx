@@ -18,16 +18,24 @@ const ServicesScreen: React.FC = () => {
 
     useEffect(() => {
         const fetchServices = async () => {
-            const servicesData = await getServices();
-            setServices(servicesData);
+            try {
+                const servicesData = await getServices();
+                setServices(servicesData);
+            } catch (error) {
+                console.error("Error fetching services:", error);  // Log any errors
+            }
         };
         fetchServices();
     }, []);
 
     const handleAddService = async (service: Omit<Service, 'id'>) => {
-        await addService(service);
-        const updatedServices = await getServices();
-        setServices(updatedServices);
+        try {
+            await addService(service);
+            const updatedServices = await getServices();
+            setServices(updatedServices);
+        } catch (error) {
+            console.error("Error adding service:", error);  // Log any errors
+        }
     };
 
     return (
