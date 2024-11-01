@@ -16,11 +16,16 @@ admin.initializeApp({
     }),
 });
 
+// Convert the environment variable to an array
+const adminEmails = (process.env.ADMIN_EMAILS || '').split(',');
+
 async function setAdminClaim() {
     try {
-        const user = await admin.auth().getUserByEmail('matosuc@gmail.com');
-        await admin.auth().setCustomUserClaims(user.uid, { admin: true });
-        console.log(`Admin claim set for ${user.email}`);
+        for (const email of adminEmails) {
+            const user = await admin.auth().getUserByEmail(email.trim());
+            await admin.auth().setCustomUserClaims(user.uid, { admin: true });
+            console.log(`Admin claim set for ${user.email}`);
+        }
     } catch (error) {
         console.error('Error setting admin claim:', error);
     }
