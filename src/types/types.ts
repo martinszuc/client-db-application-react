@@ -14,6 +14,7 @@ export interface Service {
     description: string;
     date: Date;
     price: number;
+    photoUrls?: string[]; // Add this property to hold URLs of service photos
 }
 
 export interface ServicePhoto {

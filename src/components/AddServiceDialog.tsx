@@ -18,14 +18,21 @@ interface AddServiceDialogProps {
     open: boolean;
     onClose: () => void;
     onAddService: (service: Omit<Service, 'id'>) => void;
+    clientId?: string; // This is the prop passed from parent
 }
 
-const AddServiceDialog: React.FC<AddServiceDialogProps> = ({ open, onClose, onAddService }) => {
+const AddServiceDialog: React.FC<AddServiceDialogProps> = ({ open, onClose, onAddService, clientId }) => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    const [clientId, setClientId] = useState('');
+    const [selectedClientId, setSelectedClientId] = useState(clientId || ''); // Renamed from clientId to selectedClientId
     const [date, setDate] = useState('');
     const [clients, setClients] = useState<Client[]>([]);
+
+    useEffect(() => {
+        if (clientId) {
+            setSelectedClientId(clientId); // Use selectedClientId
+        }
+    }, [clientId]);
 
     useEffect(() => {
         const fetchClients = async () => {
@@ -36,16 +43,16 @@ const AddServiceDialog: React.FC<AddServiceDialogProps> = ({ open, onClose, onAd
     }, []);
 
     const handleAdd = () => {
-        if (description.trim() === '' || !clientId || !price || !date) return;
+        if (description.trim() === '' || !selectedClientId || !price || !date) return;
         onAddService({
             description,
-            clientId,
+            clientId: selectedClientId, // Pass selectedClientId instead of clientId
             price: parseFloat(price),
             date: new Date(date),
         });
         setDescription('');
         setPrice('');
-        setClientId('');
+        setSelectedClientId('');
         setDate('');
         onClose();
     };
@@ -58,9 +65,9 @@ const AddServiceDialog: React.FC<AddServiceDialogProps> = ({ open, onClose, onAd
                     <InputLabel id="client-label">Client</InputLabel>
                     <Select
                         labelId="client-label"
-                        value={clientId}
+                        value={selectedClientId} // Use selectedClientId
                         label="Client"
-                        onChange={(e) => setClientId(e.target.value)}
+                        onChange={(e) => setSelectedClientId(e.target.value as string)} // Use selectedClientId
                     >
                         {clients.map((client) => (
                             <MenuItem key={client.id} value={client.id}>

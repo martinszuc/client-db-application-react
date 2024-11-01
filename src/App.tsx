@@ -8,6 +8,9 @@ import ClientsScreen from './pages/ClientsScreen';
 import ServicesScreen from './pages/ServicesScreen';
 import BottomNavigationBar from './components/BottomNavigationBar';
 import theme from './styles/theme';
+import ClientProfileScreen from "./pages/ClientProfileScreen";
+import ServiceProfileScreen from "./pages/ServiceProfileScreen";
+import AddServiceDialog from "./components/AddServiceDialog";
 
 const App: React.FC = () => {
     return (
@@ -49,7 +52,9 @@ const MainApp: React.FC = () => {
             <Routes>
                 <Route path="/" element={<Navigate to="/clients" replace />} />
                 <Route path="/clients" element={<ClientsScreen />} />
+                <Route path="/clients/:clientId" element={<ClientProfileScreen />} />
                 <Route path="/services" element={<ServicesScreen />} />
+                <Route path="/services/:serviceId" element={<ServiceProfileScreen />} />
             </Routes>
             <BottomNavigationBar />
         </>
