@@ -17,7 +17,7 @@ admin.initializeApp({
 });
 
 // Convert the environment variable to an array
-const adminEmails = (process.env.ADMIN_EMAILS || '').split(',');
+const adminEmails = (process.env.REACT_APP_ADMIN_EMAILS || '').split(',');
 
 async function setAdminClaim() {
     try {
