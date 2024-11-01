@@ -1,18 +1,13 @@
 import React from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, AuthContext } from './contexts/AuthContext';
+import { AuthContext, AuthProvider } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
-import Dashboard from './pages/Dashboard';
 import NotAuthorized from './pages/NotAuthorized';
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#1976d2',
-        },
-    },
-});
+import ClientsScreen from './pages/ClientsScreen';
+import ServicesScreen from './pages/ServicesScreen';
+import BottomNavigationBar from './components/BottomNavigationBar';
+import theme from './styles/theme';
 
 const App: React.FC = () => {
     return (
@@ -21,15 +16,15 @@ const App: React.FC = () => {
                 <Router>
                     <Routes>
                         <Route path="/login" element={<LoginPage />} />
+                        <Route path="/not-authorized" element={<NotAuthorized />} />
                         <Route
-                            path="/dashboard"
+                            path="/*"
                             element={
                                 <PrivateRoute>
-                                    <Dashboard />
+                                    <MainApp />
                                 </PrivateRoute>
                             }
                         />
-                        <Route path="/not-authorized" element={<NotAuthorized />} />
                         <Route path="*" element={<Navigate to="/login" />} />
                     </Routes>
                 </Router>
@@ -41,6 +36,20 @@ const App: React.FC = () => {
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
     const { currentUser } = React.useContext(AuthContext);
     return currentUser ? children : <Navigate to="/login" />;
+};
+
+// MainApp includes the bottom navigation and the main content
+const MainApp: React.FC = () => {
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<Navigate to="/clients" replace />} />
+                <Route path="/clients" element={<ClientsScreen />} />
+                <Route path="/services" element={<ServicesScreen />} />
+            </Routes>
+            <BottomNavigationBar />
+        </>
+    );
 };
 
 export default App;
