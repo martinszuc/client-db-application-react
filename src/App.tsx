@@ -1,28 +1,44 @@
 import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Container, Typography } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, AuthContext } from './contexts/AuthContext';
+import LoginPage from './pages/LoginPage';
+import Dashboard from './pages/Dashboard';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', // Customize your primary color
+      main: '#1976d2',
     },
   },
 });
 
-function App() {
+const App: React.FC = () => {
   return (
       <ThemeProvider theme={theme}>
-        <Container maxWidth="sm" style={{ textAlign: 'center', marginTop: '50px' }}>
-          <Typography variant="h2" color="primary" gutterBottom>
-            Hello World
-          </Typography>
-          <Typography variant="h5">
-            Welcome to your new PWA built with React, TypeScript, and Material UI!
-          </Typography>
-        </Container>
+        <AuthProvider>
+          <Router>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route
+                  path="/dashboard"
+                  element={
+                    <PrivateRoute>
+                      <Dashboard />
+                    </PrivateRoute>
+                  }
+              />
+              <Route path="*" element={<Navigate to="/login" />} />
+            </Routes>
+          </Router>
+        </AuthProvider>
       </ThemeProvider>
   );
-}
+};
+
+const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+  const { currentUser } = React.useContext(AuthContext);
+  return currentUser ? children : <Navigate to="/login" />;
+};
 
 export default App;

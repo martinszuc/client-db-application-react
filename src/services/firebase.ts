@@ -1,8 +1,8 @@
-// src/firebaseConfig.ts
+// src/firebase.ts
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 
-const firebaseConfig = {
+const firebase = {
     apiKey: "AIzaSyDJi2ynPLEEaT6PhtIujLY36kHuD83c8kQ",
     authDomain: "studiolenkaszuc.firebaseapp.com",
     projectId: "studiolenkaszuc",
@@ -12,6 +12,10 @@ const firebaseConfig = {
     measurementId: "G-J5FHTK211G"
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider();
+const app = initializeApp(firebase);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+export const signInWithGoogle = () => signInWithPopup(auth, provider);
+export const logout = () => signOut(auth);
+export { auth };
