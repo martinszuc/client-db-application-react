@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Container,
     Typography,
@@ -19,6 +20,8 @@ const ClientsScreen: React.FC = () => {
     const [clients, setClients] = useState<Client[]>([]);
     const [openDialog, setOpenDialog] = useState(false);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchClients = async () => {
             const clientsData = await getClients();
@@ -33,6 +36,10 @@ const ClientsScreen: React.FC = () => {
         setClients(updatedClients);
     };
 
+    const handleClientClick = (clientId: string) => {
+        navigate(`/clients/${clientId}`);
+    };
+
     return (
         <Container>
             <Typography variant="h4" gutterBottom>
@@ -41,9 +48,15 @@ const ClientsScreen: React.FC = () => {
             {clients.length > 0 ? (
                 <List>
                     {clients.map((client) => (
-                        <ListItem key={client.id} divider>
-                            <ListItemText primary={client.name} secondary={client.email || client.phone} />
-                            {/* Add any actions like edit or delete here */}
+                        <ListItem
+                            key={client.id}
+                            component="button"
+                            onClick={() => handleClientClick(client.id)}
+                        >
+                            <ListItemText
+                                primary={client.name}
+                                secondary={client.email || 'No email provided'}
+                            />
                         </ListItem>
                     ))}
                 </List>
