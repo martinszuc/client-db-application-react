@@ -1,0 +1,28 @@
+/* ReactQuill Editor Styles */
+.ql-container {
+    background-color: var(--editor-bg-color, #ffffff); /* Light by default */
+    color: var(--editor-text-color, #000000); /* Dark text by default */
+    border: none;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ql-editor {
+    min-height: 150px;
+    padding: 10px;
+}
+
+.ql-toolbar {
+    border: none;
+    border-bottom: 1px solid var(--editor-border-color, #e0e0e0); /* Light border by default */
+    background-color: var(--editor-toolbar-bg-color, #f4f4f4); /* Light toolbar background */
+}
+
+.ql-toolbar .ql-stroke {
+    stroke: var(--editor-toolbar-icon-color, #000000); /* Light icons by default */
+}
+
+.ql-toolbar .ql-fill {
+    fill: var(--editor-toolbar-icon-color, #000000);
+}
