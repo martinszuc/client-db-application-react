@@ -1,27 +1,44 @@
-import React, {ReactNode} from 'react';
-import {Box} from '@mui/material';
-import ErrorBoundary from '../ErrorBoundary';
+import React from 'react';
+import { Box, Toolbar, useTheme, useMediaQuery } from '@mui/material';
+import PublicSideBar from '../../public/components/PublicSideBar';
+import PublicBottomNavigationBar from '../../public/components/PublicBottomNavigationBar';
 import GlobalLayout from './GlobalLayout';
 
-interface PublicLayoutProps {
-    children: ReactNode;
-}
+const drawerWidth = 240;
 
-const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
+const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <GlobalLayout>
-            <ErrorBoundary>
+            <Box sx={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
+                {!isMobile && (
+                    <Box
+                        sx={{
+                            width: `${drawerWidth}px`,
+                            flexShrink: 0,
+                        }}
+                    >
+                        <PublicSideBar />
+                    </Box>
+                )}
                 <Box
+                    component="main"
                     sx={{
+                        flexGrow: 1, // Ensure content fills the available space
                         display: 'flex',
                         flexDirection: 'column',
-                        minHeight: '100vh',
+                        p: 3,
+                        paddingBottom: isMobile ? '64px' : 0,
+                        boxSizing: 'border-box', // Avoid extra spacing
                     }}
                 >
-                    {/* Public-specific header or other components can go here */}
+                    <Toolbar />
                     {children}
                 </Box>
-            </ErrorBoundary>
+                {isMobile && <PublicBottomNavigationBar />}
+            </Box>
         </GlobalLayout>
     );
 };

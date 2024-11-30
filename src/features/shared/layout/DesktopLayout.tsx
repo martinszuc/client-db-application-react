@@ -1,31 +1,28 @@
 // src/features/shared/layout/DesktopLayout.tsx
 import React from 'react';
 import { Box, Toolbar } from '@mui/material';
-import Sidebar from '@shared/layout/SideBar';
-import BottomNavigationBar from './BottomNavigationBar';
+import PublicSideBar from '@features/public/components/PublicSideBar';
 import GlobalLayout from './GlobalLayout';
 
-const drawerWidth = 240; // Ensure this matches the Sidebar's width
+const drawerWidth = 240; // Width of the PublicSideBar
 
 const DesktopLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
         <GlobalLayout>
             <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-                <Sidebar />
+                <PublicSideBar />
                 <Box
                     component="main"
                     sx={{
                         flexGrow: 1,
                         p: 3,
-                        marginLeft: `${drawerWidth}px`,
-                        paddingBottom: '64px', // Ensures content is above the BottomNavigationBar
+                        marginLeft: `${drawerWidth}px`, // Space for the PublicSideBar
+                        paddingBottom: `${64}px`, // Space for the PublicBottomNavigationBar (height: 64px)
                     }}
                 >
-                    <Toolbar />
+                    <Toolbar /> {/* Ensures content starts below the AppBar if present */}
                     {children}
                 </Box>
-                {/* Optional: Include BottomNavigationBar on desktop */}
-                <BottomNavigationBar />
             </Box>
         </GlobalLayout>
     );

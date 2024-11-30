@@ -1,7 +1,7 @@
 // src/features/shared/layout/MobileLayout.tsx
 import React from 'react';
 import { Box } from '@mui/material';
-import BottomNavigationBar from './BottomNavigationBar';
+import PublicBottomNavigationBar from '../../public/components/PublicBottomNavigationBar';
 import GlobalLayout from './GlobalLayout';
 
 const MobileLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -16,7 +16,7 @@ const MobileLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
             >
                 {/* Mobile-specific header or components */}
                 {children}
-                <BottomNavigationBar />
+                <PublicBottomNavigationBar />
             </Box>
         </GlobalLayout>
     );

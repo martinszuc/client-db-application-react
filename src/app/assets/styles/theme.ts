@@ -2,7 +2,7 @@
 
 import {createTheme} from '@mui/material/styles';
 
-// Define the height of the BottomNavigationBar
+// Define the height of the PublicBottomNavigationBar
 const BOTTOM_NAVIGATION_HEIGHT = 64; // in pixels
 
 const lightTheme = createTheme({

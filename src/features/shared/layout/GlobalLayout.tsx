@@ -1,6 +1,6 @@
 import React from 'react';
-import {useTheme} from '@mui/material/styles';
-import {Box} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 
 const GlobalLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const theme = useTheme();
@@ -8,9 +8,13 @@ const GlobalLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     return (
         <Box
             sx={{
-                paddingBottom: `${theme.custom.offset}px`, // Use the custom offset from the theme
-                minHeight: '100vh', // Ensure the layout takes up the full viewport height
-                boxSizing: 'border-box', // Include padding in the element's total width and height
+                paddingBottom: `${theme.custom.offset}px`, // Reserve space for BottomNavigationBar
+                minHeight: '100vh', // Full viewport height
+                boxSizing: 'border-box', // Include padding in total width and height
+                overflowX: 'hidden', // Prevent horizontal overflow
+                display: 'flex', // Align content properly
+                flexDirection: 'column',
+                alignItems: 'center',
             }}
         >
             {children}

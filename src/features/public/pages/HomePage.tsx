@@ -1,28 +1,36 @@
-// src/pages/public/HomePage.tsx
-
-import React, {useEffect, useState} from 'react';
-import {Slide} from '@shared/types';
-import {SlideRepository} from '@repositories/SlideRepository';
-import {AppBar, Box, Button, CircularProgress, Toolbar, Typography} from '@mui/material';
-import Slider from 'react-slick'; // Using react-slick for slideshow
+import React, { useEffect, useState } from 'react';
+import { Slide } from '@shared/types';
+import { SlideRepository } from '@repositories/SlideRepository';
+import {
+    AppBar,
+    Box,
+    Button,
+    CircularProgress,
+    Toolbar,
+    Typography,
+    useTheme,
+    useMediaQuery,
+    Container,
+} from '@mui/material';
+import Slider from 'react-slick';
 import PersonIcon from '@mui/icons-material/Person';
-import {useNavigate} from 'react-router-dom';
-import {useTranslation} from 'react-i18next';
-import logger from '@utils/logger'; // Import the logger
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import logger from '@utils/logger';
 
-// Import slick-carousel CSS if not imported globally
-// Uncomment the lines below if you prefer importing CSS directly in the component
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const slideRepository = new SlideRepository();
 
 const HomePage: React.FC = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [slides, setSlides] = useState<Slide[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     useEffect(() => {
         const fetchSlides = async () => {
@@ -35,7 +43,7 @@ const HomePage: React.FC = () => {
             } catch (err) {
                 console.error('Error fetching slides:', err);
                 setError(t('errorFetchingSlides'));
-                logger.error('HomePage: Error fetching slides', {error: err});
+                logger.error('HomePage: Error fetching slides', { error: err });
             } finally {
                 setLoading(false);
                 logger.info('HomePage: Finished fetching slides');
@@ -57,13 +65,13 @@ const HomePage: React.FC = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 7000, // 7 seconds
-        arrows: false, // Hide next and previous buttons
+        autoplaySpeed: 7000,
+        arrows: false,
         adaptiveHeight: true,
-        pauseOnHover: true, // Pause autoplay on hover
+        pauseOnHover: true,
         responsive: [
             {
-                breakpoint: 768, // Mobile breakpoint
+                breakpoint: 768,
                 settings: {
                     dots: true,
                 },
@@ -72,18 +80,16 @@ const HomePage: React.FC = () => {
     };
 
     if (loading) {
-        logger.info('HomePage: Loading slides');
         return (
-            <Box sx={{display: 'flex', justifyContent: 'center', mt: 5}}>
-                <CircularProgress/>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+                <CircularProgress />
             </Box>
         );
     }
 
     if (error) {
-        logger.warn('HomePage: Error fetching slides');
         return (
-            <Box sx={{textAlign: 'center', mt: 5}}>
+            <Box sx={{ textAlign: 'center', mt: 5 }}>
                 <Typography color="error">{error}</Typography>
             </Box>
         );
@@ -94,30 +100,24 @@ const HomePage: React.FC = () => {
             {/* AppBar with Logo and Login Button */}
             <AppBar position="static" color="transparent" elevation={0}>
                 <Toolbar>
-                    {/* Logo Section */}
                     <Box
                         component="img"
-                        src="/android-chrome-192x192.png" // Choose one of the available images or replace with your logo
+                        src="/android-chrome-192x192.png"
                         alt={t('studioLogo')}
                         sx={{
-                            height: 40, // Adjust the height as needed
-                            mr: 2, // Margin right
+                            height: 40,
+                            mr: 2,
                             cursor: 'pointer',
                         }}
-                        onClick={() => {
-                            logger.info('HomePage: Logo clicked, navigating to home');
-                            navigate('/'); // Navigate to home if logo is clicked
-                        }}
+                        onClick={() => navigate('/')}
                     />
 
-                    {/* Spacer */}
-                    <Box sx={{flexGrow: 1}}/>
+                    <Box sx={{ flexGrow: 1 }} />
 
-                    {/* Login Button */}
                     <Button
                         variant="contained"
                         color="primary"
-                        startIcon={<PersonIcon/>}
+                        startIcon={<PersonIcon />}
                         onClick={handleLoginClick}
                     >
                         {t('login')}
@@ -125,52 +125,59 @@ const HomePage: React.FC = () => {
                 </Toolbar>
             </AppBar>
 
-            {/* Slideshow */}
-            <Box sx={{p: {xs: 2, sm: 3}, maxWidth: '100%', overflow: 'hidden'}}>
-                <Slider {...settings}>
-                    {slides.map((slide) => (
-                        <Box key={slide.id} sx={{position: 'relative'}}>
-                            <img
-                                src={slide.imageUrl}
-                                alt={slide.title}
-                                style={{
-                                    width: '100%',
-                                    height: 'auto',
-                                    maxHeight: '80vh',
-                                    objectFit: 'cover',
-                                    borderRadius: '8px',
-                                }}
-                            />
-                            <Box
-                                sx={{
-                                    position: 'absolute',
-                                    bottom: {xs: 10, sm: 20},
-                                    left: {xs: 10, sm: 20},
-                                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                                    color: '#fff',
-                                    padding: {xs: '8px', sm: '16px'},
-                                    borderRadius: '5px',
-                                    maxWidth: '80%',
-                                }}
-                            >
-                                <Typography variant="h5" component="div">
-                                    {slide.title}
-                                </Typography>
-                                <Typography variant="body1" component="div">
-                                    {slide.description}
-                                </Typography>
+            {/* Main Content */}
+            <Container
+                maxWidth="lg"
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mt: 4,
+                }}
+            >
+                <Box
+                    sx={{
+                        width: '100%',
+                        maxWidth: '800px',
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        boxShadow: 3,
+                        backgroundColor: 'background.paper',
+                    }}
+                >
+                    <Slider {...settings}>
+                        {slides.map((slide) => (
+                            <Box key={slide.id} sx={{ position: 'relative' }}>
+                                <Box
+                                    component="img"
+                                    src={slide.imageUrl}
+                                    alt={slide.title}
+                                    sx={{
+                                        width: '100%',
+                                        height: isMobile ? '200px' : '400px',
+                                        objectFit: 'cover',
+                                    }}
+                                />
+                                <Box
+                                    sx={{
+                                        position: 'absolute',
+                                        bottom: 10,
+                                        left: 10,
+                                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                                        color: '#fff',
+                                        p: 1,
+                                        borderRadius: '4px',
+                                    }}
+                                >
+                                    <Typography variant="h6">{slide.title}</Typography>
+                                    <Typography variant="body2">{slide.description}</Typography>
+                                </Box>
                             </Box>
-                        </Box>
-                    ))}
-                </Slider>
-            </Box>
-
-            {/* Optional: Display slide count or other information */}
-            {slides.length === 0 && (
-                <Typography variant="h6" align="center" sx={{mt: 5}}>
-                    {t('noSlidesAvailableAtTheMoment')}
-                </Typography>
-            )}
+                        ))}
+                    </Slider>
+                </Box>
+            </Container>
         </Box>
     );
 };

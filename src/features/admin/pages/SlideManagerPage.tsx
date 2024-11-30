@@ -1,14 +1,20 @@
 // src/pages/admin/SlideManagerPage.tsx
-
-import React, {useEffect, useState} from 'react';
-import {Alert, Box, Button, CircularProgress, Snackbar, Typography} from '@mui/material';
-import {useTranslation} from 'react-i18next';
-import {Slide} from '@shared/types';
-import {SlideRepository} from '@repositories/SlideRepository';
+import React, { useEffect, useState } from 'react';
+import {
+    Alert,
+    Box,
+    Button,
+    CircularProgress,
+    Snackbar,
+    Typography,
+    Grid,
+} from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Slide } from '@shared/types';
+import { SlideRepository } from '@repositories/SlideRepository';
 import AddSlideDialog from '@adminComponents/dialogs/AddSlideDialog';
-import SlideList from '@adminComponents/slides/SlideList';
-import GlobalLayout from '@shared/layout/GlobalLayout';
-import logger from '@utils/logger'; // Import the logger
+import SlideCard from '@adminComponents/slides/SlideCard'; // New SlideCard component
+import logger from '@utils/logger';
 
 const slideRepository = new SlideRepository();
 
@@ -124,56 +130,60 @@ const SlideManagerPage: React.FC = () => {
     };
 
     return (
-        <GlobalLayout>
-            <Box sx={{ p: 3 }}>
-                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-                    <Typography variant="h5">{t('manageSlides')}</Typography>
-                    <Button
-                        variant="contained"
-                        onClick={() => {
-                            logger.info('Opening AddSlideDialog');
-                            setOpenAddDialog(true);
-                        }}
-                    >
-                        {t('addSlide')}
-                    </Button>
-                </Box>
-
-                {loading ? (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
-                        <CircularProgress />
-                    </Box>
-                ) : (
-                    <SlideList
-                        slides={slides}
-                        onEditSlide={handleEditSlide}
-                        onDeleteSlide={handleDeleteSlide}
-                    />
-                )}
-
-                <AddSlideDialog
-                    open={openAddDialog}
-                    onClose={() => {
-                        logger.info('Closing AddSlideDialog');
-                        setOpenAddDialog(false);
+        <Box sx={{ p: { xs: 2, md: 3 } }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Typography variant="h5">{t('manageSlides')}</Typography>
+                <Button
+                    variant="contained"
+                    onClick={() => {
+                        logger.info('Opening AddSlideDialog');
+                        setOpenAddDialog(true);
                     }}
-                    onAddSlide={handleAddSlide}
-                />
-
-                {/* Snackbar for notifications */}
-                <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-                    <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
-                        {snackbar.message}
-                    </Alert>
-                </Snackbar>
-
-                {error && (
-                    <Typography color="error" variant="body2" align="center" mt={2}>
-                        {error}
-                    </Typography>
-                )}
+                >
+                    {t('addSlide')}
+                </Button>
             </Box>
-        </GlobalLayout>
+
+            {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+                    <CircularProgress />
+                </Box>
+            ) : (
+                <Grid container spacing={3}>
+                    {slides.map((slide) => (
+                        <Grid item xs={12} sm={6} md={4} key={slide.id}>
+                            <SlideCard
+                                slide={slide}
+                                onEdit={handleEditSlide}
+                                onDelete={handleDeleteSlide}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            )}
+
+            <AddSlideDialog
+                open={openAddDialog}
+                onClose={() => {
+                    logger.info('Closing AddSlideDialog');
+                    setOpenAddDialog(false);
+                }}
+                onAddSlide={handleAddSlide}
+            />
+
+            {/* Snackbar for notifications */}
+            <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+
+            {error && (
+                <Typography color="error" variant="body2" align="center" mt={2}>
+                    {error}
+                </Typography>
+            )}
+        </Box>
     );
 };
 
