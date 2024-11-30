@@ -1,13 +1,12 @@
 // src/pages/public/HomePage.tsx
 
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Slide} from '../../shared/types';
 import {SlideRepository} from '../../../api/repositories/SlideRepository';
 import {AppBar, Box, Button, CircularProgress, Toolbar, Typography} from '@mui/material';
 import Slider from 'react-slick'; // Using react-slick for slideshow
 import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from 'react-router-dom';
-import {AuthContext} from '../../../app/contexts';
 import {useTranslation} from 'react-i18next';
 
 // Import slick-carousel CSS if not imported globally
@@ -23,7 +22,6 @@ const HomePage: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
     const navigate = useNavigate();
-    const { currentUser, isAdmin } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchSlides = async () => {

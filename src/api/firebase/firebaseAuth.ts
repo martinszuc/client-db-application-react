@@ -1,6 +1,6 @@
 // src/services/firebase/firebaseAuth.ts
 import {getAuth, GoogleAuthProvider, signInWithPopup, signOut} from 'firebase/auth';
-import app from './firebaseApp';
+import {app} from './firebaseApp';
 
 // Initialize Auth
 const auth = getAuth(app);

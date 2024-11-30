@@ -1,8 +1,14 @@
-// src/services/firebase/firebaseApp.ts
-import {getApp, getApps, initializeApp} from 'firebase/app';
-import {firebaseConfig} from './firebaseConfig';
+import { getApp, getApps, initializeApp } from 'firebase/app';
+import { getAnalytics, Analytics } from 'firebase/analytics';
+import { firebaseConfig } from './firebaseConfig';
 
 // Initialize Firebase app (singleton)
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-export default app;
+// Initialize Analytics (conditionally)
+let analytics: Analytics | null = null;
+if (firebaseConfig.measurementId) {
+    analytics = getAnalytics(app);
+}
+
+export { app, analytics };
