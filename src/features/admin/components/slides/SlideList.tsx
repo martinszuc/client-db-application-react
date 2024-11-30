@@ -1,6 +1,6 @@
 // src/components/SlideList.tsx
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Divider,
@@ -14,9 +14,10 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
-import {Slide} from '../../../shared/types';
+import { Slide } from '../../../shared/types';
 import EditSlideDialog from '../dialogs/EditSlideDialog';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import logger from '../../../../utils/logger'; // Import the logger
 
 interface SlideListProps {
     slides: Slide[];
@@ -27,6 +28,16 @@ interface SlideListProps {
 const SlideList: React.FC<SlideListProps> = ({ slides, onEditSlide, onDeleteSlide }) => {
     const { t } = useTranslation();
     const [editingSlide, setEditingSlide] = useState<Slide | null>(null);
+
+    const handleEditClick = (slide: Slide) => {
+        logger.info(`SlideList: Editing slide ID: ${slide.id}`, { slide });
+        setEditingSlide(slide);
+    };
+
+    const handleDeleteClick = (slideId: string) => {
+        logger.info(`SlideList: Deleting slide ID: ${slideId}`);
+        onDeleteSlide(slideId);
+    };
 
     return (
         <Box>
@@ -40,10 +51,10 @@ const SlideList: React.FC<SlideListProps> = ({ slides, onEditSlide, onDeleteSlid
                                 secondary={`${t('order')}: ${slide.order}`}
                             />
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" onClick={() => setEditingSlide(slide)}>
+                                <IconButton edge="end" onClick={() => handleEditClick(slide)}>
                                     <EditIcon />
                                 </IconButton>
-                                <IconButton edge="end" onClick={() => onDeleteSlide(slide.id)}>
+                                <IconButton edge="end" onClick={() => handleDeleteClick(slide.id)}>
                                     <DeleteIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
@@ -55,7 +66,10 @@ const SlideList: React.FC<SlideListProps> = ({ slides, onEditSlide, onDeleteSlid
             {editingSlide && (
                 <EditSlideDialog
                     open={Boolean(editingSlide)}
-                    onClose={() => setEditingSlide(null)}
+                    onClose={() => {
+                        logger.info(`SlideList: Closing EditSlideDialog for slide ID: ${editingSlide.id}`);
+                        setEditingSlide(null);
+                    }}
                     onEditSlide={onEditSlide}
                     slide={editingSlide}
                 />

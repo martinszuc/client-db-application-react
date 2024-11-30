@@ -8,6 +8,7 @@ import Slider from 'react-slick'; // Using react-slick for slideshow
 import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import logger from '../../../utils/logger'; // Import the logger
 
 // Import slick-carousel CSS if not imported globally
 // Uncomment the lines below if you prefer importing CSS directly in the component
@@ -17,7 +18,7 @@ import {useTranslation} from 'react-i18next';
 const slideRepository = new SlideRepository();
 
 const HomePage: React.FC = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [slides, setSlides] = useState<Slide[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
@@ -25,14 +26,19 @@ const HomePage: React.FC = () => {
 
     useEffect(() => {
         const fetchSlides = async () => {
+            setLoading(true);
+            logger.info('HomePage: Fetching slides');
             try {
                 const data = await slideRepository.getSlides();
                 setSlides(data);
+                logger.info(`HomePage: Fetched ${data.length} slides`);
             } catch (err) {
                 console.error('Error fetching slides:', err);
                 setError(t('errorFetchingSlides'));
+                logger.error('HomePage: Error fetching slides', {error: err});
             } finally {
                 setLoading(false);
+                logger.info('HomePage: Finished fetching slides');
             }
         };
 
@@ -40,6 +46,7 @@ const HomePage: React.FC = () => {
     }, [t]);
 
     const handleLoginClick = () => {
+        logger.info('HomePage: Login button clicked');
         navigate('/login');
     };
 
@@ -65,16 +72,18 @@ const HomePage: React.FC = () => {
     };
 
     if (loading) {
+        logger.info('HomePage: Loading slides');
         return (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
-                <CircularProgress />
+            <Box sx={{display: 'flex', justifyContent: 'center', mt: 5}}>
+                <CircularProgress/>
             </Box>
         );
     }
 
     if (error) {
+        logger.warn('HomePage: Error fetching slides');
         return (
-            <Box sx={{ textAlign: 'center', mt: 5 }}>
+            <Box sx={{textAlign: 'center', mt: 5}}>
                 <Typography color="error">{error}</Typography>
             </Box>
         );
@@ -86,25 +95,29 @@ const HomePage: React.FC = () => {
             <AppBar position="static" color="transparent" elevation={0}>
                 <Toolbar>
                     {/* Logo Section */}
-                    <Box component="img"
-                         src="/android-chrome-192x192.png" // Choose one of the available images or replace with your logo
-                         alt={t('studioLogo')}
-                         sx={{
-                             height: 40, // Adjust the height as needed
-                             mr: 2, // Margin right
-                             cursor: 'pointer',
-                         }}
-                         onClick={() => navigate('/')} // Navigate to home if logo is clicked
+                    <Box
+                        component="img"
+                        src="/android-chrome-192x192.png" // Choose one of the available images or replace with your logo
+                        alt={t('studioLogo')}
+                        sx={{
+                            height: 40, // Adjust the height as needed
+                            mr: 2, // Margin right
+                            cursor: 'pointer',
+                        }}
+                        onClick={() => {
+                            logger.info('HomePage: Logo clicked, navigating to home');
+                            navigate('/'); // Navigate to home if logo is clicked
+                        }}
                     />
 
                     {/* Spacer */}
-                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{flexGrow: 1}}/>
 
                     {/* Login Button */}
                     <Button
                         variant="contained"
                         color="primary"
-                        startIcon={<PersonIcon />}
+                        startIcon={<PersonIcon/>}
                         onClick={handleLoginClick}
                     >
                         {t('login')}
@@ -113,10 +126,10 @@ const HomePage: React.FC = () => {
             </AppBar>
 
             {/* Slideshow */}
-            <Box sx={{ p: { xs: 2, sm: 3 }, maxWidth: '100%', overflow: 'hidden' }}>
+            <Box sx={{p: {xs: 2, sm: 3}, maxWidth: '100%', overflow: 'hidden'}}>
                 <Slider {...settings}>
                     {slides.map((slide) => (
-                        <Box key={slide.id} sx={{ position: 'relative' }}>
+                        <Box key={slide.id} sx={{position: 'relative'}}>
                             <img
                                 src={slide.imageUrl}
                                 alt={slide.title}
@@ -131,11 +144,11 @@ const HomePage: React.FC = () => {
                             <Box
                                 sx={{
                                     position: 'absolute',
-                                    bottom: { xs: 10, sm: 20 },
-                                    left: { xs: 10, sm: 20 },
+                                    bottom: {xs: 10, sm: 20},
+                                    left: {xs: 10, sm: 20},
                                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                                     color: '#fff',
-                                    padding: { xs: '8px', sm: '16px' },
+                                    padding: {xs: '8px', sm: '16px'},
                                     borderRadius: '5px',
                                     maxWidth: '80%',
                                 }}
@@ -154,7 +167,7 @@ const HomePage: React.FC = () => {
 
             {/* Optional: Display slide count or other information */}
             {slides.length === 0 && (
-                <Typography variant="h6" align="center" sx={{ mt: 5 }}>
+                <Typography variant="h6" align="center" sx={{mt: 5}}>
                     {t('noSlidesAvailableAtTheMoment')}
                 </Typography>
             )}

@@ -1,17 +1,24 @@
 // src/pages/admin/SettingsPage.tsx
 
 import React from 'react';
-import {Button, ButtonGroup, Container, Typography} from '@mui/material';
-import {useThemeContext} from '../../../app/contexts/ThemeContext';
-import {useTranslation} from 'react-i18next';
+import { Button, ButtonGroup, Container, Typography } from '@mui/material';
+import { useThemeContext } from '../../../app/contexts/ThemeContext';
+import { useTranslation } from 'react-i18next';
 import GlobalLayout from '../../shared/layout/GlobalLayout';
+import logger from '../../../utils/logger'; // Import the logger
 
 const SettingsPage: React.FC = () => {
     const { toggleTheme, themeMode } = useThemeContext();
     const { t, i18n } = useTranslation();
 
     const changeLanguage = (lng: string) => {
+        logger.info(`Changing language to: ${lng}`);
         i18n.changeLanguage(lng);
+    };
+
+    const handleToggleTheme = () => {
+        logger.info(`Toggling theme from ${themeMode} to ${themeMode === 'light' ? 'dark' : 'light'}`);
+        toggleTheme();
     };
 
     return (
@@ -27,7 +34,7 @@ const SettingsPage: React.FC = () => {
                 {/* Theme Toggle */}
                 <div style={{ marginBottom: '16px' }}>
                     <Typography variant="h6">{t('theme')}</Typography>
-                    <Button variant="contained" onClick={toggleTheme} style={{ marginTop: '8px' }}>
+                    <Button variant="contained" onClick={handleToggleTheme} style={{ marginTop: '8px' }}>
                         {themeMode === 'light' ? t('switchToDarkMode') : t('switchToLightMode')}
                     </Button>
                 </div>

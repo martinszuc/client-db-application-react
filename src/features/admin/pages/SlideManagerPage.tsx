@@ -1,13 +1,14 @@
 // src/pages/admin/SlideManagerPage.tsx
 
-import React, {useEffect, useState} from 'react';
-import {Alert, Box, Button, CircularProgress, Snackbar, Typography} from '@mui/material';
-import {useTranslation} from 'react-i18next';
-import {Slide} from '../../shared/types';
-import {SlideRepository} from '../../../api/repositories/SlideRepository';
+import React, { useEffect, useState } from 'react';
+import { Alert, Box, Button, CircularProgress, Snackbar, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Slide } from '../../shared/types';
+import { SlideRepository } from '../../../api/repositories/SlideRepository';
 import AddSlideDialog from '../components/dialogs/AddSlideDialog';
 import SlideList from '../components/slides/SlideList';
 import GlobalLayout from '../../shared/layout/GlobalLayout';
+import logger from '../../../utils/logger'; // Import the logger
 
 const slideRepository = new SlideRepository();
 
@@ -30,15 +31,19 @@ const SlideManagerPage: React.FC = () => {
     useEffect(() => {
         const fetchSlides = async () => {
             setLoading(true);
+            logger.info('Fetching slides for SlideManagerPage');
             try {
                 const slidesData = await slideRepository.getSlides();
                 setSlides(slidesData);
+                logger.info(`Fetched ${slidesData.length} slides`);
             } catch (err) {
                 console.error(t('errorFetchingSlides'), err);
                 setError(t('errorFetchingSlides'));
                 setSnackbar({ open: true, message: t('errorFetchingSlides'), severity: 'error' });
+                logger.error('Error fetching slides', { error: err });
             } finally {
                 setLoading(false);
+                logger.info('Finished fetching slides');
             }
         };
 
@@ -46,18 +51,22 @@ const SlideManagerPage: React.FC = () => {
     }, [t]);
 
     const handleAddSlide = async (slide: Omit<Slide, 'id' | 'createdAt' | 'updatedAt'>, imageFile: File) => {
+        logger.info('Adding a new slide', { slide });
         try {
             const newSlide = await slideRepository.addSlide(slide, imageFile);
             setSlides([...slides, newSlide]);
             setSnackbar({ open: true, message: t('slideAddedSuccessfully'), severity: 'success' });
+            logger.info('Slide added successfully', { newSlide });
         } catch (err) {
             console.error(t('errorAddingSlide'), err);
             setError(t('errorAddingSlide'));
             setSnackbar({ open: true, message: t('errorAddingSlide'), severity: 'error' });
+            logger.error('Error adding slide', { error: err });
         }
     };
 
     const handleEditSlide = async (updatedSlide: Slide) => {
+        logger.info('Editing slide', { updatedSlide });
         try {
             await slideRepository.updateSlide(updatedSlide.id, {
                 title: updatedSlide.title,
@@ -67,14 +76,17 @@ const SlideManagerPage: React.FC = () => {
             });
             setSlides(slides.map((slide) => (slide.id === updatedSlide.id ? updatedSlide : slide)));
             setSnackbar({ open: true, message: t('slideUpdatedSuccessfully'), severity: 'success' });
+            logger.info('Slide updated successfully', { updatedSlide });
         } catch (err) {
             console.error(t('errorEditingSlide'), err);
             setError(t('errorEditingSlide'));
             setSnackbar({ open: true, message: t('errorEditingSlide'), severity: 'error' });
+            logger.error('Error editing slide', { slideId: updatedSlide.id, error: err });
         }
     };
 
     const handleDeleteSlide = async (slideId: string) => {
+        logger.info(`Deleting slide with ID: ${slideId}`);
         try {
             const slideToDelete = slides.find(slide => slide.id === slideId);
             if (!slideToDelete) throw new Error(t('slideNotFound'));
@@ -85,10 +97,12 @@ const SlideManagerPage: React.FC = () => {
             await slideRepository.deleteSlide(slideId, imagePath);
             setSlides(slides.filter((slide) => slide.id !== slideId));
             setSnackbar({ open: true, message: t('slideDeletedSuccessfully'), severity: 'success' });
+            logger.info(`Slide deleted successfully with ID: ${slideId}`);
         } catch (err) {
             console.error(t('errorDeletingSlide'), err);
             setError(t('errorDeletingSlide'));
             setSnackbar({ open: true, message: t('errorDeletingSlide'), severity: 'error' });
+            logger.error('Error deleting slide', { slideId, error: err });
         }
     };
 
@@ -104,6 +118,7 @@ const SlideManagerPage: React.FC = () => {
             return path;
         } catch (error) {
             console.error(t('invalidUrl'), url);
+            logger.error('Invalid image URL', { url, error });
             return '';
         }
     };
@@ -113,7 +128,13 @@ const SlideManagerPage: React.FC = () => {
             <Box sx={{ p: 3 }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                     <Typography variant="h5">{t('manageSlides')}</Typography>
-                    <Button variant="contained" onClick={() => setOpenAddDialog(true)}>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            logger.info('Opening AddSlideDialog');
+                            setOpenAddDialog(true);
+                        }}
+                    >
                         {t('addSlide')}
                     </Button>
                 </Box>
@@ -123,12 +144,19 @@ const SlideManagerPage: React.FC = () => {
                         <CircularProgress />
                     </Box>
                 ) : (
-                    <SlideList slides={slides} onEditSlide={handleEditSlide} onDeleteSlide={handleDeleteSlide} />
+                    <SlideList
+                        slides={slides}
+                        onEditSlide={handleEditSlide}
+                        onDeleteSlide={handleDeleteSlide}
+                    />
                 )}
 
                 <AddSlideDialog
                     open={openAddDialog}
-                    onClose={() => setOpenAddDialog(false)}
+                    onClose={() => {
+                        logger.info('Closing AddSlideDialog');
+                        setOpenAddDialog(false);
+                    }}
                     onAddSlide={handleAddSlide}
                 />
 

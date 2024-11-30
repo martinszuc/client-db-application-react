@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Card, CardContent, Typography} from '@mui/material';
-import {useTranslation} from 'react-i18next';
-import {ClientRepository} from '../../../../api/repositories/ClientRepository';
-import {Client} from '../../../shared/types';
+// src/pages/admin/NumberOfClientsCard.tsx
+
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { ClientRepository } from '../../../../api/repositories/ClientRepository';
+import { Client } from '../../../shared/types';
+import logger from '../../../../utils/logger'; // Import the logger
 
 const clientRepository = new ClientRepository();
 
@@ -12,11 +15,14 @@ const NumberOfClientsCard: React.FC = () => {
 
     useEffect(() => {
         const fetchNumberOfClients = async () => {
+            logger.info('NumberOfClientsCard: Fetching number of clients');
             try {
                 const clients: Client[] = await clientRepository.getClients();
                 setNumberOfClients(clients.length);
+                logger.info(`NumberOfClientsCard: Fetched ${clients.length} clients`);
             } catch (error) {
                 console.error(t('errorFetchingData'), error);
+                logger.error('NumberOfClientsCard: Error fetching clients', { error });
             }
         };
         fetchNumberOfClients();

@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
-import {useTranslation} from 'react-i18next';
-import {Client} from '../../../shared/types';
+// src/components/AddClientDialog.tsx
+
+import React, { useState } from 'react';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Client } from '../../../shared/types';
+import logger from '../../../../utils/logger'; // Import the logger
 
 interface AddClientDialogProps {
     open: boolean;
@@ -9,8 +12,8 @@ interface AddClientDialogProps {
     onAddClient: (client: Omit<Client, 'id'>) => void;
 }
 
-const AddClientDialog: React.FC<AddClientDialogProps> = ({open, onClose, onAddClient}) => {
-    const {t} = useTranslation();
+const AddClientDialog: React.FC<AddClientDialogProps> = ({ open, onClose, onAddClient }) => {
+    const { t } = useTranslation();
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
@@ -18,9 +21,11 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({open, onClose, onAddCl
     const handleAdd = () => {
         if (name.trim() === '') {
             console.warn(t('name') + ' ' + t('isRequired'));
+            logger.warn('AddClientDialog: Attempted to add client without a name');
             return;
         }
-        onAddClient({name, phone, email});
+        logger.info('AddClientDialog: Adding a new client', { name, phone, email });
+        onAddClient({ name, phone, email });
         setName('');
         setPhone('');
         setEmail('');
@@ -60,7 +65,14 @@ const AddClientDialog: React.FC<AddClientDialogProps> = ({open, onClose, onAddCl
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>{t('cancel')}</Button>
-                <Button onClick={handleAdd} variant="contained" color="primary">
+                <Button
+                    onClick={() => {
+                        logger.info('AddClientDialog: Cancel button clicked');
+                        handleAdd();
+                    }}
+                    variant="contained"
+                    color="primary"
+                >
                     {t('add')}
                 </Button>
             </DialogActions>

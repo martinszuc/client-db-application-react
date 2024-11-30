@@ -1,4 +1,4 @@
-// src/pages/admin/ClientProfilePage.tsx
+// src/features/admin/pages/ClientProfilePage.tsx
 
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
@@ -9,13 +9,14 @@ import {Client, Service} from '../../shared/types';
 import {Container, Typography} from '@mui/material';
 import ServiceItemNoName from '../components/items/ServiceItemNoName';
 import GlobalLayout from '../../shared/layout/GlobalLayout';
+import logger from '../../../utils/logger';
 
 const clientRepo = new ClientRepository();
 const serviceRepo = new ServiceRepository();
 
 const ClientProfilePage: React.FC = () => {
-    const { clientId } = useParams<{ clientId: string }>();
-    const { t } = useTranslation();
+    const {clientId} = useParams<{ clientId: string }>();
+    const {t} = useTranslation();
     const [client, setClient] = useState<Client | null>(null);
     const [services, setServices] = useState<Service[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -26,16 +27,20 @@ const ClientProfilePage: React.FC = () => {
                 try {
                     const clientData = await clientRepo.getClientById(clientId);
                     setClient(clientData);
+                    logger.info(`Fetched client data for clientId: ${clientId}`, {clientData});
 
                     const clientServices = await serviceRepo.getServicesByClientId(clientId);
                     setServices(clientServices);
+                    logger.info(`Fetched ${clientServices.length} services for clientId: ${clientId}`);
                 } catch (error) {
                     console.error(t('errorFetchingClientOrServices'), error);
+                    logger.error('Error fetching client or services', {clientId, error});
                 } finally {
                     setLoading(false);
                 }
             } else {
                 setLoading(false);
+                logger.warn('ClientProfilePage rendered without clientId');
             }
         };
         fetchClientData();
@@ -60,7 +65,7 @@ const ClientProfilePage: React.FC = () => {
                         <Typography variant="subtitle1">{client.email || t('noEmail')}</Typography>
                         <Typography variant="subtitle1">{client.phone || t('noPhone')}</Typography>
 
-                        <Typography variant="h5" style={{ marginTop: '24px' }}>
+                        <Typography variant="h5" style={{marginTop: '24px'}}>
                             {t('services')}
                         </Typography>
                         {services.length > 0 ? (
@@ -69,7 +74,10 @@ const ClientProfilePage: React.FC = () => {
                                     <ServiceItemNoName
                                         key={service.id}
                                         service={service}
-                                        onClick={() => console.log(`Service clicked: ${service.id}`)}
+                                        onClick={() => {
+                                            logger.debug(`Service clicked: ${service.id}`);
+                                            console.log(`Service clicked: ${service.id}`);
+                                        }}
                                     />
                                 ))}
                             </div>

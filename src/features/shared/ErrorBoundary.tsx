@@ -1,5 +1,8 @@
-import React, {Component, ErrorInfo, ReactNode} from 'react';
-import {Box, Typography} from '@mui/material';
+// src/features/shared/ErrorBoundary.tsx
+
+import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Box, Typography } from '@mui/material';
+import logger from '../../utils/logger';
 
 interface ErrorBoundaryProps {
     children: ReactNode;
@@ -23,6 +26,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
     componentDidCatch(error: Error, errorInfo: ErrorInfo) {
         console.error("Uncaught error:", error, errorInfo);
+        logger.error('Uncaught error in component', { error, errorInfo });
         // Optionally, log errors to an external service like Sentry
     }
 

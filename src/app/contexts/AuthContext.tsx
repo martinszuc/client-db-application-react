@@ -1,6 +1,9 @@
-import React, {createContext, ReactNode, useEffect, useState} from 'react';
-import {auth} from '../../api/firebase/firebaseAuth';
-import {getIdTokenResult, onAuthStateChanged, User} from 'firebase/auth';
+// src/app/contexts/AuthContext.tsx
+
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
+import { auth } from '../../api/firebase/firebaseAuth';
+import { getIdTokenResult, onAuthStateChanged, User } from 'firebase/auth';
+import logger from '../../utils/logger';
 
 interface AuthContextProps {
     currentUser: User | null;
@@ -20,25 +23,33 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        return onAuthStateChanged(auth, async (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setLoading(true);
             try {
                 if (user) {
                     await user.getIdToken(true); // Force token refresh
                     const tokenResult = await getIdTokenResult(user);
-                    setIsAdmin(!!tokenResult.claims.admin);
+                    const adminStatus = !!tokenResult.claims.admin;
+                    setIsAdmin(adminStatus);
+                    logger.setAdminStatus(adminStatus);
+                    logger.info(`User logged in: ${user.email}`, { user });
                 } else {
                     setCurrentUser(null);
                     setIsAdmin(false);
+                    logger.setAdminStatus(false);
+                    logger.info('User logged out');
                 }
             } catch (error) {
                 console.error('Error refreshing token:', error);
+                logger.error('Error refreshing token', error);
                 setIsAdmin(false);
             } finally {
                 setCurrentUser(user);
                 setLoading(false);
             }
         });
+
+        return () => unsubscribe();
     }, []);
 
     return (

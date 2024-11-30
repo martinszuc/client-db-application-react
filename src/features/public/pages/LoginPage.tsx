@@ -1,11 +1,12 @@
 // src/pages/LoginPage.tsx
 
 import React from 'react';
-import {Button, Container, Typography} from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
-import {useTranslation} from 'react-i18next';
-import {auth, signInWithGoogle} from '../../../api/firebase/firebaseAuth';
-import {useNavigate} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { auth, signInWithGoogle } from '../../../api/firebase/firebaseAuth';
+import { useNavigate } from 'react-router-dom';
+import logger from '../../../utils/logger'; // Import the logger
 
 const adminEmails = (process.env.REACT_APP_ADMIN_EMAILS || '').split(',');
 
@@ -14,20 +15,22 @@ const LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
+        logger.info('LoginPage: Initiating Google sign-in');
         try {
             await signInWithGoogle();
 
             // Check if the logged-in user is an admin
             const currentUser = auth.currentUser;
             if (currentUser && adminEmails.includes(currentUser.email || '')) {
-                console.log(t('successfullySignedInAsAdmin'));
+                logger.info(`LoginPage: Admin user logged in: ${currentUser.email}`);
                 navigate('/admin/dashboard'); // Navigate to dashboard if admin
             } else {
-                console.warn(t('accessDeniedNotAdmin'));
+                logger.warn(`LoginPage: Non-admin user attempted to log in: ${currentUser?.email}`);
                 navigate('/not-authorized'); // Redirect to a "Not Authorized" page if not admin
             }
         } catch (error) {
             console.error(t('authenticationError'), error); // Log the error for debugging
+            logger.error('LoginPage: Authentication error', { error });
         }
     };
 

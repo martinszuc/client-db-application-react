@@ -1,6 +1,6 @@
 // src/pages/admin/ServiceProfilePage.tsx
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     Button,
@@ -20,15 +20,16 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useNavigate, useParams} from 'react-router-dom';
-import {useTranslation} from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import DOMPurify from 'dompurify';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
-import {Client, Service} from '../../shared/types';
-import {ServiceRepository} from '../../../api/repositories/ServiceRepository';
-import {ClientRepository} from '../../../api/repositories/ClientRepository';
+import { Client, Service } from '../../shared/types';
+import { ServiceRepository } from '../../../api/repositories/ServiceRepository';
+import { ClientRepository } from '../../../api/repositories/ClientRepository';
 import GlobalLayout from '../../shared/layout/GlobalLayout';
+import logger from '../../../utils/logger';
 
 const serviceRepository = new ServiceRepository();
 const clientRepository = new ClientRepository();
@@ -47,16 +48,21 @@ const ServiceProfilePage: React.FC = () => {
         const fetchService = async () => {
             if (serviceId) {
                 setLoadingService(true);
+                logger.info(`Fetching service with ID: ${serviceId}`);
                 try {
                     const serviceData = await serviceRepository.getServiceById(serviceId);
                     setService(serviceData);
+                    logger.info(`Service fetched: ${serviceData.name}`, { serviceData });
 
                     const clientData: Client = await clientRepository.getClientById(serviceData.clientId);
                     setClientName(clientData.name);
+                    logger.info(`Associated client fetched: ${clientData.name}`, { clientData });
                 } catch (error) {
                     console.error(t('errorFetchingServiceOrClient'), error);
+                    logger.error('Error fetching service or client', { serviceId, error });
                 } finally {
                     setLoadingService(false);
+                    logger.info('Finished fetching service and client data');
                 }
             }
         };
@@ -65,17 +71,24 @@ const ServiceProfilePage: React.FC = () => {
 
     const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
+        logger.info('Opened service profile menu');
     };
 
-    const handleMenuClose = () => setAnchorEl(null);
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        logger.info('Closed service profile menu');
+    };
 
     const handleDeleteService = async () => {
         if (serviceId) {
+            logger.info(`Attempting to delete service with ID: ${serviceId}`);
             try {
                 await serviceRepository.deleteService(serviceId);
+                logger.info(`Service deleted with ID: ${serviceId}`);
                 navigate('/admin/services');
             } catch (error) {
                 console.error(t('errorDeletingService'), error);
+                logger.error('Error deleting service', { serviceId, error });
             }
         }
     };
@@ -83,20 +96,26 @@ const ServiceProfilePage: React.FC = () => {
     const handleAddPhotos = async (files: FileList) => {
         if (!serviceId) return;
 
+        logger.info(`Adding photos to service ID: ${serviceId}`, { fileCount: files.length });
+
         try {
             const uploadPromises = Array.from(files).map((file) =>
                 serviceRepository.uploadPhoto(file, serviceId)
             );
             const photoUrls = await Promise.all(uploadPromises);
+            logger.info(`Uploaded ${photoUrls.length} photos for service ID: ${serviceId}`, { photoUrls });
             await serviceRepository.addPhotosToService(serviceId, photoUrls);
             const updatedService = await serviceRepository.getServiceById(serviceId);
             setService(updatedService);
+            logger.info(`Updated service with new photos: ${serviceId}`, { updatedService });
         } catch (error) {
             console.error(t('errorAddingPhotosToService'), error);
+            logger.error('Error adding photos to service', { serviceId, error });
         }
     };
 
     if (loadingService) {
+        logger.info('ServiceProfilePage is loading data');
         return (
             <GlobalLayout>
                 <Container>
@@ -107,6 +126,7 @@ const ServiceProfilePage: React.FC = () => {
     }
 
     if (!service) {
+        logger.warn('ServiceProfilePage rendered without service data');
         return (
             <GlobalLayout>
                 <Container>

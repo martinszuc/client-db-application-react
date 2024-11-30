@@ -1,13 +1,16 @@
-// src/components/LanguageSwitcher.tsx
+// src/features/shared/LanguageSwitcher.tsx
+
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {Button, ButtonGroup} from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Button, ButtonGroup } from '@mui/material';
+import logger from '../../utils/logger';
 
 const LanguageSwitcher: React.FC = () => {
     const { i18n } = useTranslation();
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
+        logger.logAdminAction('change_language', { language: lng });
     };
 
     return (

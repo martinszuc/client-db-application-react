@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Card, CardContent, Typography} from '@mui/material';
-import {useTranslation} from 'react-i18next';
-import {ServiceRepository} from '../../../../api/repositories/ServiceRepository';
-import {Service} from '../../../shared/types';
+// src/pages/admin/RevenueThisMonthCard.tsx
+
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { ServiceRepository } from '../../../../api/repositories/ServiceRepository';
+import { Service } from '../../../shared/types';
+import logger from '../../../../utils/logger'; // Import the logger
 
 const serviceRepository = new ServiceRepository();
 
@@ -12,6 +15,7 @@ const RevenueThisMonthCard: React.FC = () => {
 
     useEffect(() => {
         const fetchRevenueThisMonth = async () => {
+            logger.info('RevenueThisMonthCard: Fetching this month\'s revenue');
             try {
                 const services: Service[] = await serviceRepository.getServices();
                 const now = new Date();
@@ -23,8 +27,10 @@ const RevenueThisMonthCard: React.FC = () => {
                     )
                     .reduce((total, service) => total + service.price, 0);
                 setRevenueThisMonth(revenue);
+                logger.info(`RevenueThisMonthCard: This month's revenue: €${revenue.toFixed(2)}`);
             } catch (error) {
                 console.error(t('errorFetchingData'), error);
+                logger.error('RevenueThisMonthCard: Error fetching this month\'s revenue', { error });
             }
         };
         fetchRevenueThisMonth();
