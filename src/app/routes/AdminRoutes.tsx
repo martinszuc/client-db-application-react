@@ -1,7 +1,6 @@
 // src/app/routes/AdminRoutes.tsx
-
-import React, {lazy, Suspense} from 'react';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import AdminLayout from '@shared/layout/AdminLayout';
 
@@ -19,17 +18,17 @@ const AdminRoutes: React.FC = () => {
             <AdminLayout>
                 <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
-                        <Route path="dashboard" element={<DashboardPage/>}/>
-                        <Route path="clients" element={<ClientsPage/>}/>
-                        <Route path="clients/:clientId" element={<ClientProfilePage/>}/>
-                        <Route path="services" element={<ServicesPage/>}/>
-                        <Route path="services/:serviceId" element={<ServiceProfilePage/>}/>
-                        <Route path="settings" element={<SettingsPage/>}/>
-                        <Route path="slides" element={<SlideManagerPage/>}/>
+                        <Route path="dashboard" element={<DashboardPage />} />
+                        <Route path="clients" element={<ClientsPage />} />
+                        <Route path="clients/:clientId" element={<ClientProfilePage />} />
+                        <Route path="services" element={<ServicesPage />} />
+                        <Route path="services/:serviceId" element={<ServiceProfilePage />} />
+                        <Route path="settings" element={<SettingsPage />} />
+                        <Route path="slides" element={<SlideManagerPage />} />
                         {/* Redirect base path to dashboard */}
-                        <Route path="/" element={<Navigate to="dashboard" replace/>}/>
+                        <Route path="/" element={<Navigate to="dashboard" replace />} />
                         {/* Catch-all route */}
-                        <Route path="*" element={<Navigate to="/" replace/>}/>
+                        <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </Suspense>
             </AdminLayout>

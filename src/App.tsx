@@ -6,7 +6,6 @@ import PublicRoutes from '@routes/PublicRoutes';
 import AdminRoutes from '@routes/AdminRoutes';
 import ErrorBoundary from '@features/shared/ErrorBoundary';
 import logger from '@utils/logger';
-import ResponsiveLayout from './features/shared/layout/ResponsiveLayout';
 import GlobalStyles from './app/assets/styles/GlobalStyles'; // Ensure you include global styles
 
 const App: React.FC = () => {
@@ -19,13 +18,11 @@ const App: React.FC = () => {
             <AuthProvider>
                 <ErrorBoundary>
                     <Router>
-                        <ResponsiveLayout>
-                            <GlobalStyles />
-                            <Routes>
-                                <Route path="/*" element={<PublicRoutes />} />
-                                <Route path="/admin/*" element={<AdminRoutes />} />
-                            </Routes>
-                        </ResponsiveLayout>
+                        <GlobalStyles />
+                        <Routes>
+                            <Route path="/*" element={<PublicRoutes />} />
+                            <Route path="/admin/*" element={<AdminRoutes />} />
+                        </Routes>
                     </Router>
                 </ErrorBoundary>
             </AuthProvider>

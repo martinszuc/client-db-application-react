@@ -1,3 +1,4 @@
+// src/features/shared/layout/PublicLayout.tsx
 import React from 'react';
 import { Box, Toolbar, useTheme, useMediaQuery } from '@mui/material';
 import PublicSideBar from '../../public/components/PublicSideBar';
@@ -30,7 +31,7 @@ const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
                         display: 'flex',
                         flexDirection: 'column',
                         p: 3,
-                        paddingBottom: isMobile ? '64px' : 0,
+                        paddingBottom: isMobile ? '64px' : 0, // Space for BottomNavigationBar on mobile
                         boxSizing: 'border-box', // Avoid extra spacing
                     }}
                 >

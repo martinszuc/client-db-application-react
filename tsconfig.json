@@ -28,6 +28,7 @@
       "@routes/*": ["app/routes/*"],
       "@features/*": ["features/*"],
       "@admin/*": ["features/admin/*"],
+      "@publicComponents/*": ["features/public/components/*"],
       "@adminComponents/*": ["features/admin/components/*"],
       "@adminPages/*": ["features/admin/pages/*"],
       "@publicPages/*": ["features/public/pages/*"],

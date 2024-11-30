@@ -1,6 +1,6 @@
+// src/features/shared/layout/GlobalLayout.tsx
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 
 const GlobalLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const theme = useTheme();
@@ -8,7 +8,7 @@ const GlobalLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     return (
         <Box
             sx={{
-                paddingBottom: `${theme.custom.offset}px`, // Reserve space for BottomNavigationBar
+                paddingBottom: `${theme.spacing(8)}`, // Adjust based on BottomNavigationBar height
                 minHeight: '100vh', // Full viewport height
                 boxSizing: 'border-box', // Include padding in total width and height
                 overflowX: 'hidden', // Prevent horizontal overflow

@@ -1,8 +1,9 @@
+// src/features/shared/layout/AdminLayout.tsx
 import React from 'react';
 import { Box, Toolbar, useTheme, useMediaQuery } from '@mui/material';
-import AdminSideBar from '@adminComponents/AdminSideBar';
-import AdminBottomNavigationBar from '@adminComponents/AdminBottomNavigationBar';
-import GlobalLayout from '../../shared/layout/GlobalLayout';
+import AdminSideBar from '@features/admin/components/AdminSideBar';
+import AdminBottomNavigationBar from '@features/admin/components/AdminBottomNavigationBar';
+import GlobalLayout from './GlobalLayout';
 
 const drawerWidth = 240;
 
@@ -30,7 +31,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                         display: 'flex',
                         flexDirection: 'column',
                         p: 3,
-                        paddingBottom: isMobile ? '64px' : 0,
+                        paddingBottom: isMobile ? '64px' : 0, // Space for BottomNavigationBar on mobile
                         boxSizing: 'border-box', // Avoid extra spacing
                     }}
                 >
