@@ -3,7 +3,7 @@
 import React, {createContext, useContext, useMemo, useState} from 'react';
 import {Theme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'; // Use CssBaseline for consistent global styling
-import {darkTheme, lightTheme} from '../assets/styles/theme';
+import {darkTheme, lightTheme} from '@styles/theme';
 
 interface ThemeContextProps {
     toggleTheme: () => void;

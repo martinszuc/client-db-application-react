@@ -1,16 +1,16 @@
 // src/components/EditSlideDialog.tsx
 
-import React, { useEffect, useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { Slide } from '../../../shared/types';
+import React, {useEffect, useState} from 'react';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from '@mui/material';
+import {useTranslation} from 'react-i18next';
+import {Slide} from '@shared/types';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import storage from '../../../../api/firebase/firebaseStorage';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import {deleteObject, getDownloadURL, ref, uploadBytes} from 'firebase/storage';
+import storage from '@firebaseDir/firebaseStorage';
+import MuiAlert, {AlertProps} from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import logger from '../../../../utils/logger'; // Import the logger
+import logger from '@utils/logger'; // Import the logger
 
 interface EditSlideDialogProps {
     open: boolean;

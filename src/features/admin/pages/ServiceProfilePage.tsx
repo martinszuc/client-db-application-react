@@ -1,6 +1,6 @@
 // src/pages/admin/ServiceProfilePage.tsx
 
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Box,
     Button,
@@ -20,16 +20,16 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 import DOMPurify from 'dompurify';
 import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
-import { Client, Service } from '../../shared/types';
-import { ServiceRepository } from '../../../api/repositories/ServiceRepository';
-import { ClientRepository } from '../../../api/repositories/ClientRepository';
-import GlobalLayout from '../../shared/layout/GlobalLayout';
-import logger from '../../../utils/logger';
+import {Client, Service} from '@shared/types';
+import {ServiceRepository} from '@repositories/ServiceRepository';
+import {ClientRepository} from '@repositories/ClientRepository';
+import GlobalLayout from '@shared/layout/GlobalLayout';
+import logger from '@utils/logger';
 
 const serviceRepository = new ServiceRepository();
 const clientRepository = new ClientRepository();

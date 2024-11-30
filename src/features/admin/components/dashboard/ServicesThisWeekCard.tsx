@@ -1,11 +1,11 @@
 // src/pages/admin/ServicesThisWeekCard.tsx
 
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { ServiceRepository } from '../../../../api/repositories/ServiceRepository';
-import { Service } from '../../../shared/types';
-import logger from '../../../../utils/logger'; // Import the logger
+import React, {useEffect, useState} from 'react';
+import {Card, CardContent, Typography} from '@mui/material';
+import {useTranslation} from 'react-i18next';
+import {ServiceRepository} from '@repositories/ServiceRepository';
+import {Service} from '@shared/types';
+import logger from '@utils/logger'; // Import the logger
 
 const serviceRepository = new ServiceRepository();
 

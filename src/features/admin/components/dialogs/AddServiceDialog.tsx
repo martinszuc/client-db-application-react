@@ -1,6 +1,6 @@
 // src/components/AddServiceDialog.tsx
 
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Button,
     Dialog,
@@ -14,15 +14,14 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { Service } from '../../../shared/types/Service';
-import { Client } from '../../../shared/types/Client';
-import { ClientRepository } from '../../../../api/repositories/ClientRepository';
+import {useTranslation} from 'react-i18next';
+import {Client, Service} from '@shared/types';
+import {ClientRepository} from '@repositories/ClientRepository';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import '../../../../app/assets/styles/reactQuill.css'; // Import the custom CSS
-import { useTheme } from '@mui/material/styles';
-import logger from '../../../../utils/logger'; // Import the logger
+import '@styles/reactQuill.css'; // Import the custom CSS
+import {useTheme} from '@mui/material/styles';
+import logger from '@utils/logger'; // Import the logger
 
 interface AddServiceDialogProps {
     open: boolean;

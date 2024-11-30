@@ -1,12 +1,12 @@
 // src/pages/LoginPage.tsx
 
 import React from 'react';
-import { Button, Container, Typography } from '@mui/material';
+import {Button, Container, Typography} from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
-import { useTranslation } from 'react-i18next';
-import { auth, signInWithGoogle } from '../../../api/firebase/firebaseAuth';
-import { useNavigate } from 'react-router-dom';
-import logger from '../../../utils/logger'; // Import the logger
+import {useTranslation} from 'react-i18next';
+import {auth, signInWithGoogle} from '@firebaseDir//firebaseAuth';
+import {useNavigate} from 'react-router-dom';
+import logger from '@utils/logger'; // Import the logger
 
 const adminEmails = (process.env.REACT_APP_ADMIN_EMAILS || '').split(',');
 

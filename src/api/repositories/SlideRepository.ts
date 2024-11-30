@@ -1,10 +1,10 @@
 // src/repositories/SlideRepository.ts
 
-import db from '../firebase/firebaseFirestore';
-import storage from '../firebase/firebaseStorage';
+import db from '@firebaseDir/firebaseFirestore';
+import storage from '@firebaseDir/firebaseStorage';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, updateDoc} from 'firebase/firestore';
 import {deleteObject, getDownloadURL, ref, uploadBytes} from 'firebase/storage';
-import {Slide} from '../../features/shared/types';
+import {Slide} from '@shared/types';
 
 export class SlideRepository {
     private slidesCollection = collection(db, 'slides');

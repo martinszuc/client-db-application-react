@@ -1,16 +1,16 @@
 // src/app/routes/AdminRoutes.tsx
-import React, { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import React, {lazy, Suspense} from 'react';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import AdminLayout from '../../features/shared/layout/AdminLayout';
+import AdminLayout from '@shared/layout/AdminLayout';
 
-const DashboardPage = lazy(() => import('../../features/admin/pages/DashboardPage'));
-const ClientsPage = lazy(() => import('../../features/admin/pages/ClientsPage'));
-const ClientProfilePage = lazy(() => import('../../features/admin/pages/ClientProfilePage'));
-const ServicesPage = lazy(() => import('../../features/admin/pages/ServicesPage'));
-const ServiceProfilePage = lazy(() => import('../../features/admin/pages/ServiceProfilePage'));
-const SettingsPage = lazy(() => import('../../features/admin/pages/SettingsPage'));
-const SlideManagerPage = lazy(() => import('../../features/admin/pages/SlideManagerPage'));
+const DashboardPage = lazy(() => import('@adminPages/DashboardPage'));
+const ClientsPage = lazy(() => import('@adminPages/ClientsPage'));
+const ClientProfilePage = lazy(() => import('@adminPages/ClientProfilePage'));
+const ServicesPage = lazy(() => import('@adminPages/ServicesPage'));
+const ServiceProfilePage = lazy(() => import('@adminPages/ServiceProfilePage'));
+const SettingsPage = lazy(() => import('@adminPages/SettingsPage'));
+const SlideManagerPage = lazy(() => import('@adminPages/SlideManagerPage'));
 
 const AdminRoutes: React.FC = () => {
     return (

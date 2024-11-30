@@ -9,12 +9,32 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "@api/*": ["api/*"],
+      "@firebaseDir/*": ["api/firebase/*"],
+      "@repositories/*": ["api/repositories/*"],
+      "@app/*": ["app/*"],
+      "@assets/*": ["app/assets/*"],
+      "@styles/*": ["app/assets/styles/*"],
+      "@contexts/*": ["app/contexts/*"],
+      "@hooks/*": ["app/hooks/*"],
+      "@routes/*": ["app/routes/*"],
+      "@features/*": ["features/*"],
+      "@admin/*": ["features/admin/*"],
+      "@adminComponents/*": ["features/admin/components/*"],
+      "@adminPages/*": ["features/admin/pages/*"],
+      "@publicPages/*": ["features/public/pages/*"],
+      "@shared/*": ["features/shared/*"],
+      "@utils/*": ["utils/*"],
+      "@i18n/*": ["i18n/*"]
+    }
   },
   "include": ["src"]
 }

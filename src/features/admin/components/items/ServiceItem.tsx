@@ -1,7 +1,7 @@
 // src/components/ServiceItem.tsx
 
 import React from 'react';
-import {Service} from '../../../shared/types';
+import {Service} from '@shared/types';
 import {Box, Card, CardActionArea, CardContent, Typography} from '@mui/material';
 import {useTranslation} from 'react-i18next';
 import DOMPurify from 'dompurify';

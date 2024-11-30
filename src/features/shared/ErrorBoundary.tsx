@@ -1,8 +1,8 @@
 // src/features/shared/ErrorBoundary.tsx
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Box, Typography } from '@mui/material';
-import logger from '../../utils/logger';
+import React, {Component, ErrorInfo, ReactNode} from 'react';
+import {Box, Typography} from '@mui/material';
+import logger from '@utils/logger';
 
 interface ErrorBoundaryProps {
     children: ReactNode;

@@ -1,7 +1,7 @@
 // src/components/ClientItem.tsx
 
 import React from 'react';
-import {Client} from '../../../shared/types';
+import {Client} from '@shared/types';
 import {Avatar, Box, Card, CardActionArea, CardContent, Typography} from '@mui/material';
 import {useTranslation} from 'react-i18next';
 

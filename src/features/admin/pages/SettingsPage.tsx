@@ -1,11 +1,11 @@
 // src/pages/admin/SettingsPage.tsx
 
 import React from 'react';
-import { Button, ButtonGroup, Container, Typography } from '@mui/material';
-import { useThemeContext } from '../../../app/contexts/ThemeContext';
-import { useTranslation } from 'react-i18next';
-import GlobalLayout from '../../shared/layout/GlobalLayout';
-import logger from '../../../utils/logger'; // Import the logger
+import {Button, ButtonGroup, Container, Typography} from '@mui/material';
+import {useThemeContext} from '@app/contexts';
+import {useTranslation} from 'react-i18next';
+import GlobalLayout from '@shared/layout/GlobalLayout';
+import logger from '@utils/logger'; // Import the logger
 
 const SettingsPage: React.FC = () => {
     const { toggleTheme, themeMode } = useThemeContext();

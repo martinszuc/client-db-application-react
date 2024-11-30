@@ -1,17 +1,17 @@
 // src/pages/admin/ServicesPage.tsx
 
-import React, { useEffect, useState } from 'react';
-import { Container, Fab, Typography } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {Container, Fab, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useTranslation } from 'react-i18next';
-import { Service } from '../../shared/types';
-import { ServiceRepository } from '../../../api/repositories/ServiceRepository';
-import { ClientRepository } from '../../../api/repositories/ClientRepository';
-import AddServiceDialog from '../components/dialogs/AddServiceDialog';
-import { useNavigate } from 'react-router-dom';
-import ServiceItem from '../components/items/ServiceItem';
-import GlobalLayout from '../../shared/layout/GlobalLayout';
-import logger from '../../../utils/logger'; // Import the logger
+import {useTranslation} from 'react-i18next';
+import {Service} from '@shared/types';
+import {ServiceRepository} from '@repositories/ServiceRepository';
+import {ClientRepository} from '@repositories/ClientRepository';
+import AddServiceDialog from '@adminComponents/dialogs/AddServiceDialog';
+import {useNavigate} from 'react-router-dom';
+import ServiceItem from '@adminComponents/items/ServiceItem';
+import GlobalLayout from '@shared/layout/GlobalLayout';
+import logger from '@utils/logger'; // Import the logger
 
 const serviceRepository = new ServiceRepository();
 const clientRepository = new ClientRepository();

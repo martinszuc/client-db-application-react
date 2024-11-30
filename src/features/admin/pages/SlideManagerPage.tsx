@@ -1,14 +1,14 @@
 // src/pages/admin/SlideManagerPage.tsx
 
-import React, { useEffect, useState } from 'react';
-import { Alert, Box, Button, CircularProgress, Snackbar, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { Slide } from '../../shared/types';
-import { SlideRepository } from '../../../api/repositories/SlideRepository';
-import AddSlideDialog from '../components/dialogs/AddSlideDialog';
-import SlideList from '../components/slides/SlideList';
-import GlobalLayout from '../../shared/layout/GlobalLayout';
-import logger from '../../../utils/logger'; // Import the logger
+import React, {useEffect, useState} from 'react';
+import {Alert, Box, Button, CircularProgress, Snackbar, Typography} from '@mui/material';
+import {useTranslation} from 'react-i18next';
+import {Slide} from '@shared/types';
+import {SlideRepository} from '@repositories/SlideRepository';
+import AddSlideDialog from '@adminComponents/dialogs/AddSlideDialog';
+import SlideList from '@adminComponents/slides/SlideList';
+import GlobalLayout from '@shared/layout/GlobalLayout';
+import logger from '@utils/logger'; // Import the logger
 
 const slideRepository = new SlideRepository();
 

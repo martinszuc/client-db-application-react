@@ -1,11 +1,11 @@
 // src/pages/admin/NumberOfClientsCard.tsx
 
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { ClientRepository } from '../../../../api/repositories/ClientRepository';
-import { Client } from '../../../shared/types';
-import logger from '../../../../utils/logger'; // Import the logger
+import React, {useEffect, useState} from 'react';
+import {Card, CardContent, Typography} from '@mui/material';
+import {useTranslation} from 'react-i18next';
+import {ClientRepository} from '@repositories/ClientRepository';
+import {Client} from '@shared/types';
+import logger from '@utils/logger'; // Import the logger
 
 const clientRepository = new ClientRepository();
 

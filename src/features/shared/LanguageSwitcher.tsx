@@ -1,9 +1,9 @@
 // src/features/shared/LanguageSwitcher.tsx
 
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, ButtonGroup } from '@mui/material';
-import logger from '../../utils/logger';
+import {useTranslation} from 'react-i18next';
+import {Button, ButtonGroup} from '@mui/material';
+import logger from '@utils/logger';
 
 const LanguageSwitcher: React.FC = () => {
     const { i18n } = useTranslation();

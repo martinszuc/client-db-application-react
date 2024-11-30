@@ -1,6 +1,6 @@
 // src/components/SlideList.tsx
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     Box,
     Divider,
@@ -14,10 +14,10 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
-import { Slide } from '../../../shared/types';
-import EditSlideDialog from '../dialogs/EditSlideDialog';
-import { useTranslation } from 'react-i18next';
-import logger from '../../../../utils/logger'; // Import the logger
+import {Slide} from '@shared/types/Slide';
+import EditSlideDialog from '@adminComponents/dialogs/EditSlideDialog';
+import {useTranslation} from 'react-i18next';
+import logger from '@utils/logger'; // Import the logger
 
 interface SlideListProps {
     slides: Slide[];

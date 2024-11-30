@@ -1,9 +1,9 @@
 // src/app/contexts/AuthContext.tsx
 
-import React, { createContext, ReactNode, useEffect, useState } from 'react';
-import { auth } from '../../api/firebase/firebaseAuth';
-import { getIdTokenResult, onAuthStateChanged, User } from 'firebase/auth';
-import logger from '../../utils/logger';
+import React, {createContext, ReactNode, useEffect, useState} from 'react';
+import {auth} from '@firebaseDir/firebaseAuth';
+import {getIdTokenResult, onAuthStateChanged, User} from 'firebase/auth';
+import logger from '@utils/logger';
 
 interface AuthContextProps {
     currentUser: User | null;

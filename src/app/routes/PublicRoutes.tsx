@@ -1,9 +1,9 @@
-import React, { lazy, Suspense } from 'react';
+import React, {lazy, Suspense} from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import PublicLayout from '../../features/shared/layout/PublicLayout';
+import PublicLayout from '@shared/layout/PublicLayout';
 
-const HomePage = lazy(() => import('../../features/public/pages/HomePage'));
-const LoginPage = lazy(() => import('../../features/public/pages/LoginPage'));
+const HomePage = lazy(() => import('@publicPages/HomePage'));
+const LoginPage = lazy(() => import('@publicPages/LoginPage'));
 
 const PublicRoutes: React.FC = () => {
     return (

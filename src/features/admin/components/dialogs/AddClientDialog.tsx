@@ -1,10 +1,10 @@
 // src/components/AddClientDialog.tsx
 
-import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { Client } from '../../../shared/types';
-import logger from '../../../../utils/logger'; // Import the logger
+import React, {useState} from 'react';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
+import {useTranslation} from 'react-i18next';
+import {Client} from '@shared/types';
+import logger from '@utils/logger'; // Import the logger
 
 interface AddClientDialogProps {
     open: boolean;

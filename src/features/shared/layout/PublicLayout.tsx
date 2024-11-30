@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Box } from '@mui/material';
+import React, {ReactNode} from 'react';
+import {Box} from '@mui/material';
 import ErrorBoundary from '../ErrorBoundary';
 import GlobalLayout from './GlobalLayout';
 

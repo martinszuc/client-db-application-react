@@ -2,7 +2,7 @@
 
 import React, {useState} from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
-import {Slide} from "../../../shared/types/Slide";
+import {Slide} from "@shared/types";
 import {useTranslation} from 'react-i18next';
 
 interface AddSlideDialogProps {

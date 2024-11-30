@@ -3,13 +3,13 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import {ClientRepository} from '../../../api/repositories/ClientRepository';
-import {ServiceRepository} from '../../../api/repositories/ServiceRepository';
-import {Client, Service} from '../../shared/types';
+import {ClientRepository} from '@repositories/ClientRepository';
+import {ServiceRepository} from '@repositories/ServiceRepository';
+import {Client, Service} from '@shared/types';
 import {Container, Typography} from '@mui/material';
-import ServiceItemNoName from '../components/items/ServiceItemNoName';
-import GlobalLayout from '../../shared/layout/GlobalLayout';
-import logger from '../../../utils/logger';
+import ServiceItemNoName from '@adminComponents/items/ServiceItemNoName';
+import GlobalLayout from '@shared/layout/GlobalLayout';
+import logger from '@utils/logger';
 
 const clientRepo = new ClientRepository();
 const serviceRepo = new ServiceRepository();

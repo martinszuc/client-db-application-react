@@ -2,7 +2,7 @@
 
 import db from '../firebase/firebaseFirestore';
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc,} from 'firebase/firestore';
-import {Client} from '../../features/shared/types';
+import {Client} from '@shared/types';
 
 export class ClientRepository {
     private clientsCollection = collection(db, 'clients');

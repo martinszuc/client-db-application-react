@@ -1,7 +1,7 @@
 // src/app/routes/PrivateRoute.tsx
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import {Navigate} from 'react-router-dom';
+import {useAuth} from '@hooks/useAuth';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { currentUser, isAdmin, loading } = useAuth();

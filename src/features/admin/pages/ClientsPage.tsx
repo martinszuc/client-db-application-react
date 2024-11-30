@@ -1,16 +1,16 @@
 // src/features/admin/pages/ClientsPage.tsx
 
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Container, Fab, Typography } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Container, Fab, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useTranslation } from 'react-i18next';
-import { Client } from '../../shared/types';
-import { ClientRepository } from '../../../api/repositories/ClientRepository';
-import AddClientDialog from '../components/dialogs/AddClientDialog';
-import ClientItem from '../components/items/ClientItem';
-import GlobalLayout from '../../shared/layout/GlobalLayout';
-import logger from '../../../utils/logger';
+import {useTranslation} from 'react-i18next';
+import {Client} from '@shared/types';
+import {ClientRepository} from '@repositories/ClientRepository';
+import AddClientDialog from '@adminComponents/dialogs/AddClientDialog';
+import ClientItem from '@adminComponents/items/ClientItem';
+import GlobalLayout from '@shared/layout/GlobalLayout';
+import logger from '@utils/logger';
 
 const clientRepo = new ClientRepository();
 

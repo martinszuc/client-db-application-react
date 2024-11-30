@@ -1,21 +1,13 @@
 // src/pages/admin/RevenueTrendChart.tsx
 
-import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import { ServiceRepository } from '../../../../api/repositories/ServiceRepository';
-import { Service } from '../../../shared/types';
-import {
-    CartesianGrid,
-    Line,
-    LineChart,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
-} from 'recharts';
-import { format, subDays } from 'date-fns';
-import logger from '../../../../utils/logger'; // Import the logger
+import React, {useEffect, useState} from 'react';
+import {Card, CardContent, Typography} from '@mui/material';
+import {useTranslation} from 'react-i18next';
+import {ServiceRepository} from '@repositories/ServiceRepository';
+import {Service} from '@shared/types';
+import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from 'recharts';
+import {format, subDays} from 'date-fns';
+import logger from '@utils/logger'; // Import the logger
 
 const serviceRepository = new ServiceRepository();
 

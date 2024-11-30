@@ -1,8 +1,7 @@
 // src/utils/logger.ts
 
-import { logEvent } from 'firebase/analytics';
-import { Analytics } from 'firebase/analytics';
-import { analytics } from '../api/firebase/firebaseApp';
+import {Analytics, logEvent} from 'firebase/analytics';
+import {analytics} from '@firebaseDir/firebaseApp';
 
 class Logger {
     private isEnabled: boolean;

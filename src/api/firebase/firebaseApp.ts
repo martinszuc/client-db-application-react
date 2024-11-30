@@ -1,11 +1,11 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getAnalytics, Analytics } from 'firebase/analytics';
-import { firebaseConfig } from './firebaseConfig';
+import { Analytics, getAnalytics } from 'firebase/analytics';
+import { firebaseConfig } from '@firebaseDir/firebaseConfig';
 
-// Initialize Firebase app (singleton)
+// Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Initialize Analytics (conditionally)
+// Initialize Analytics with proper typing
 let analytics: Analytics | null = null;
 if (firebaseConfig.measurementId) {
     analytics = getAnalytics(app);

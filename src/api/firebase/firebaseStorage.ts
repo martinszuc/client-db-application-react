@@ -1,8 +1,6 @@
-// src/services/firebase/firebaseStorage.ts
-import {getStorage} from 'firebase/storage';
-import {app} from './firebaseApp';
+import { getStorage } from 'firebase/storage';
+import { app } from '@firebaseDir/firebaseApp';
 
 // Initialize Storage
 const storage = getStorage(app);
-
 export default storage;

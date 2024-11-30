@@ -2,16 +2,16 @@
 
 import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {logout} from '../../../api/firebase/firebaseAuth';
+import {logout} from '@firebaseDir/firebaseAuth';
 import {useNavigate} from 'react-router-dom';
-import {Container, Box, Typography, Button} from '@mui/material';
-import RevenueTodayCard from '../components/dashboard/RevenueTodayCard';
-import RevenueThisMonthCard from '../components/dashboard/RevenueThisMonthCard';
-import NumberOfClientsCard from '../components/dashboard/NumberOfClientsCard';
-import ServicesThisWeekCard from '../components/dashboard/ServicesThisWeekCard';
-import RevenueTrendChart from '../components/dashboard/RevenueTrendChart';
-import GlobalLayout from '../../shared/layout/GlobalLayout';
-import logger from '../../../utils/logger';
+import {Box, Button, Container, Typography} from '@mui/material';
+import RevenueTodayCard from '@adminComponents/dashboard/RevenueTodayCard';
+import RevenueThisMonthCard from '@adminComponents/dashboard/RevenueThisMonthCard';
+import NumberOfClientsCard from '@adminComponents/dashboard/NumberOfClientsCard';
+import ServicesThisWeekCard from '@adminComponents/dashboard/ServicesThisWeekCard';
+import RevenueTrendChart from '@adminComponents/dashboard/RevenueTrendChart';
+import GlobalLayout from '@shared/layout/GlobalLayout';
+import logger from '@utils/logger';
 
 const DashboardPage: React.FC = () => {
     const {t} = useTranslation();

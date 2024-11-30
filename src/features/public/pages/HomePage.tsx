@@ -1,14 +1,14 @@
 // src/pages/public/HomePage.tsx
 
 import React, {useEffect, useState} from 'react';
-import {Slide} from '../../shared/types';
-import {SlideRepository} from '../../../api/repositories/SlideRepository';
+import {Slide} from '@shared/types';
+import {SlideRepository} from '@repositories/SlideRepository';
 import {AppBar, Box, Button, CircularProgress, Toolbar, Typography} from '@mui/material';
 import Slider from 'react-slick'; // Using react-slick for slideshow
 import PersonIcon from '@mui/icons-material/Person';
 import {useNavigate} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-import logger from '../../../utils/logger'; // Import the logger
+import logger from '@utils/logger'; // Import the logger
 
 // Import slick-carousel CSS if not imported globally
 // Uncomment the lines below if you prefer importing CSS directly in the component
