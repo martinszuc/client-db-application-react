@@ -19,6 +19,7 @@ export const adminMenuItems: MenuItem[] = [
     { text: 'clients', icon: <PeopleIcon />, path: '/admin/clients' },
     { text: 'services', icon: <BuildIcon />, path: '/admin/services' },
     { text: 'settings', icon: <SettingsIcon />, path: '/admin/settings' },
+    { text: 'prices', icon: <MonetizationOnIcon />, path: '/admin/prices' }, // Added
 ];
 
 export const publicMenuItems: MenuItem[] = [

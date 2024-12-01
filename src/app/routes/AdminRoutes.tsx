@@ -1,4 +1,5 @@
 // src/app/routes/AdminRoutes.tsx
+
 import React, { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
@@ -11,6 +12,7 @@ const ServicesPage = lazy(() => import('@adminPages/ServicesPage'));
 const ServiceProfilePage = lazy(() => import('@adminPages/ServiceProfilePage'));
 const SettingsPage = lazy(() => import('@adminPages/SettingsPage'));
 const SlideManagerPage = lazy(() => import('@adminPages/SlideManagerPage'));
+const PricesManagerPage = lazy(() => import('@adminPages/PricesManagerPage')); // Added
 
 const AdminRoutes: React.FC = () => {
     return (
@@ -25,6 +27,7 @@ const AdminRoutes: React.FC = () => {
                         <Route path="services/:serviceId" element={<ServiceProfilePage />} />
                         <Route path="settings" element={<SettingsPage />} />
                         <Route path="slides" element={<SlideManagerPage />} />
+                        <Route path="prices" element={<PricesManagerPage />} /> {/* Added */}
                         {/* Redirect base path to dashboard */}
                         <Route path="/" element={<Navigate to="dashboard" replace />} />
                         {/* Catch-all route */}
