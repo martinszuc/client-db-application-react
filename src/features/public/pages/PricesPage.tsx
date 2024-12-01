@@ -19,10 +19,6 @@ import db from '@firebaseDir/firebaseFirestore'; // Adjust the path as needed
 import logger from '@utils/logger';
 
 // Styled component for the expand button
-interface ExpandMoreProps {
-    expand: boolean;
-}
-
 const ExpandMore = styled((props: any) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -129,7 +125,9 @@ const PricesPage: React.FC = () => {
                                 </CardActions>
                                 <Collapse in={expanded[price.id]} timeout="auto" unmountOnExit>
                                     <CardContent>
-                                        <Typography paragraph>{price.fullDescription}</Typography>
+                                        <Typography variant="body1" component="p">
+                                            {price.fullDescription}
+                                        </Typography>
                                         {price.photoUrls && price.photoUrls.length > 0 && (
                                             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 1 }}>
                                                 {price.photoUrls.map((url) => (
