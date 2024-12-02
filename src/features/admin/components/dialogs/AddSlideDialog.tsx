@@ -4,6 +4,9 @@ import React, {useState} from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material';
 import {Slide} from "@shared/types";
 import {useTranslation} from 'react-i18next';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import '@styles/reactQuill.css'; // Import the custom CSS
 
 interface AddSlideDialogProps {
     open: boolean;
@@ -36,12 +39,11 @@ const AddSlideDialog: React.FC<AddSlideDialogProps> = ({ open, onClose, onAddSli
                     onChange={(e) => setTitle(e.target.value)}
                     margin="dense"
                 />
-                <TextField
-                    label={t('description')}
-                    fullWidth
+                <ReactQuill
+                    theme="snow"
                     value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    margin="dense"
+                    onChange={setDescription}
+                    style={{ height: '150px', marginBottom: '16px' }}
                 />
                 <TextField
                     label={t('order')}

@@ -6,6 +6,7 @@ import {useTranslation} from 'react-i18next';
 import {Slide} from '@shared/types';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import '@styles/reactQuill.css'; // Import the custom CSS
 import {deleteObject, getDownloadURL, ref, uploadBytes} from 'firebase/storage';
 import storage from '@firebaseDir/firebaseStorage';
 import MuiAlert, {AlertProps} from '@mui/material/Alert';
@@ -143,7 +144,7 @@ const EditSlideDialog: React.FC<EditSlideDialogProps> = ({ open, onClose, onEdit
                         theme="snow"
                         value={description}
                         onChange={setDescription}
-                        style={{ height: '150px', marginBottom: '50px' }}
+                        style={{ height: '150px', marginBottom: '16px' }}
                     />
                     {error && (
                         <Typography color="error" variant="body2">

@@ -1,4 +1,5 @@
 // src/pages/admin/SlideManagerPage.tsx
+
 import React, { useEffect, useState } from 'react';
 import {
     Alert,
@@ -13,7 +14,8 @@ import { useTranslation } from 'react-i18next';
 import { Slide } from '@shared/types';
 import { SlideRepository } from '@repositories/SlideRepository';
 import AddSlideDialog from '@adminComponents/dialogs/AddSlideDialog';
-import SlideCard from '@adminComponents/slides/SlideCard'; // New SlideCard component
+import EditSlideDialog from '@adminComponents/dialogs/EditSlideDialog'; // Import the EditSlideDialog
+import SlideCard from '@adminComponents/slides/SlideCard';
 import logger from '@utils/logger';
 
 const slideRepository = new SlideRepository();
@@ -22,6 +24,8 @@ const SlideManagerPage: React.FC = () => {
     const { t } = useTranslation();
     const [slides, setSlides] = useState<Slide[]>([]);
     const [openAddDialog, setOpenAddDialog] = useState(false);
+    const [openEditDialog, setOpenEditDialog] = useState(false); // State to manage EditSlideDialog
+    const [selectedSlide, setSelectedSlide] = useState<Slide | null>(null); // State for the slide being edited
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
@@ -154,7 +158,10 @@ const SlideManagerPage: React.FC = () => {
                         <Grid item xs={12} sm={6} md={4} key={slide.id}>
                             <SlideCard
                                 slide={slide}
-                                onEdit={handleEditSlide}
+                                onEdit={(slide) => {
+                                    setSelectedSlide(slide); // Set the selected slide
+                                    setOpenEditDialog(true); // Open the EditSlideDialog
+                                }}
                                 onDelete={handleDeleteSlide}
                             />
                         </Grid>
@@ -170,6 +177,20 @@ const SlideManagerPage: React.FC = () => {
                 }}
                 onAddSlide={handleAddSlide}
             />
+
+            {/* EditSlideDialog */}
+            {selectedSlide && (
+                <EditSlideDialog
+                    open={openEditDialog}
+                    onClose={() => {
+                        logger.info('Closing EditSlideDialog');
+                        setOpenEditDialog(false);
+                        setSelectedSlide(null); // Clear the selected slide
+                    }}
+                    onEditSlide={handleEditSlide}
+                    slide={selectedSlide}
+                />
+            )}
 
             {/* Snackbar for notifications */}
             <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleCloseSnackbar}>

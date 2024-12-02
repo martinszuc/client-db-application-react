@@ -76,6 +76,7 @@ declare module '@mui/material/styles' {
             offset: number;
         };
     }
+
     interface ThemeOptions {
         custom?: {
             offset?: number;
@@ -83,4 +84,4 @@ declare module '@mui/material/styles' {
     }
 }
 
-export { lightTheme, darkTheme };
+export {lightTheme, darkTheme};

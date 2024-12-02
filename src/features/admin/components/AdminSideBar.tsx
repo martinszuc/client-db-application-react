@@ -22,6 +22,7 @@ const AdminSideBar: React.FC = () => {
                 [`& .MuiDrawer-paper`]: {
                     width: drawerWidth,
                     boxSizing: 'border-box',
+                    top: '64px',
                 },
             }}
         >

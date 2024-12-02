@@ -105,11 +105,14 @@
   "tablePrice": "Cena",
   "tableShortDescription": "Krátky popis",
   "tableTitle": "Názov",
+  "title": "Názov",
+  "validationFullDescriptionRequired": "Je potrebné zadať celý popis.",
   "theme": "Téma",
   "home": "Domov",
   "uploadImage": "Nahrať obrázok",
   "uploadPhoto": "Nahrať fotografiu",
   "uploadPhotos": "Nahrať fotografie",
   "update": "Aktualizovať",
-  "youDoNotHavePermission": "Nemáte oprávnenie na zobrazenie tejto stránky."
+  "youDoNotHavePermission": "Nemáte oprávnenie na zobrazenie tejto stránky.",
+  "appName": "Kozmetické Štúdio Lenka Szüčová"
 }

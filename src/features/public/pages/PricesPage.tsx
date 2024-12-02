@@ -17,6 +17,7 @@ import { Price } from '@shared/types/Price';
 import { collection, getDocs } from 'firebase/firestore';
 import db from '@firebaseDir/firebaseFirestore'; // Adjust the path as needed
 import logger from '@utils/logger';
+import {useTranslation} from "react-i18next";
 
 // Styled component for the expand button
 const ExpandMore = styled((props: any) => {
@@ -31,6 +32,7 @@ const ExpandMore = styled((props: any) => {
 }));
 
 const PricesPage: React.FC = () => {
+    const { t } = useTranslation();
     const [prices, setPrices] = useState<Price[]>([]);
     const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
     const [loading, setLoading] = useState<boolean>(false);
@@ -85,9 +87,6 @@ const PricesPage: React.FC = () => {
 
     return (
         <Box sx={{ mt: 4, px: 2 }}>
-            <Typography variant="h4" gutterBottom align="center">
-                Our Prices
-            </Typography>
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
                     <CircularProgress />
@@ -113,7 +112,7 @@ const PricesPage: React.FC = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
-                                    <Typography variant="button">More</Typography>
+                                    <Typography variant="button">{t('more')}</Typography>
                                     <ExpandMore
                                         expand={expanded[price.id]}
                                         onClick={() => handleExpandClick(price.id)}

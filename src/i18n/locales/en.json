@@ -131,5 +131,6 @@
   "validationFullDescriptionRequired": "Full description is required.",
   "shortDescription": "Short Description",
   "fullDescription": "Full Description",
-  "pricePhotoAlt": "{{title}} Photo"
+  "pricePhotoAlt": "{{title}} Photo",
+  "appName": "Kozmetické Štúdio Lenka Szüčová"
 }
