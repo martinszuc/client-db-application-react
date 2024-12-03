@@ -24,5 +24,5 @@ export const adminMenuItems: MenuItem[] = [
 
 export const publicMenuItems: MenuItem[] = [
     { text: 'home', icon: <HomeIcon />, path: '/' },
-    { text: 'prices', icon: <MonetizationOnIcon />, path: '/public/prices' },
+    { text: 'prices', icon: <MonetizationOnIcon />, path: '/prices' },
 ];

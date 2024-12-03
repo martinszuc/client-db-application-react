@@ -37,7 +37,7 @@ const TopAppBar: React.FC = () => {
     const handleLogout = async () => {
         try {
             await logout();
-            navigate('/public/login');
+            navigate('/login');
         } catch (error) {
             console.error(t('logoutError'), error);
             // Optionally, display an error notification
@@ -80,7 +80,7 @@ const TopAppBar: React.FC = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton onClick={() => navigate('/public/prices')}>
+                    <ListItemButton onClick={() => navigate('prices')}>
                         <ListItemIcon>
                             <MonetizationOnIcon />
                         </ListItemIcon>

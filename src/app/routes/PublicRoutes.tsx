@@ -15,7 +15,7 @@ const PublicRoutes: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
-                    <Route path="/public/prices" element={<PricesPage />} /> {/* Added */}
+                    <Route path="/prices" element={<PricesPage />} /> {/* Added */}
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </Suspense>
