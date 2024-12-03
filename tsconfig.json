@@ -30,6 +30,7 @@
       "@admin/*": ["features/admin/*"],
       "@publicComponents/*": ["features/public/components/*"],
       "@adminComponents/*": ["features/admin/components/*"],
+      "@sharedComponents/*": ["features/shared/components/*"],
       "@adminPages/*": ["features/admin/pages/*"],
       "@publicPages/*": ["features/public/pages/*"],
       "@shared/*": ["features/shared/*"],

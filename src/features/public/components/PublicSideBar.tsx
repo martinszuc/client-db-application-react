@@ -4,7 +4,7 @@ import React from 'react';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, ListItemButton } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { publicMenuItems, MenuItem } from '@shared/layout/menuItems';
+import { publicMenuItems, MenuItem } from '@shared/menu/menuNavigationItems';
 
 const drawerWidth = 240;
 

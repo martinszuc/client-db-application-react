@@ -1,4 +1,4 @@
-// src/features/shared/layout/menuItems.tsx
+// src/features/shared/layout/menuNavigationItems.tsx
 
 import React from 'react';
 import DashboardIcon from '@mui/icons-material/Dashboard';

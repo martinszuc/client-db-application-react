@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { publicMenuItems, MenuItem } from '@shared/layout/menuItems';
+import { publicMenuItems, MenuItem } from '@shared/menu/menuNavigationItems';
 
 const PublicBottomNavigationBar: React.FC = () => {
     const navigate = useNavigate();
