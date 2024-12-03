@@ -15,12 +15,13 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    ListItemButton
+    ListItemButton,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-// Import other icons as needed
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@app/hooks/useAuth';
 import { logout } from '@api/firebase/firebaseAuth';
@@ -40,7 +41,6 @@ const TopAppBar: React.FC = () => {
             navigate('/login');
         } catch (error) {
             console.error(t('logoutError'), error);
-            // Optionally, display an error notification
         }
     };
 
@@ -118,28 +118,48 @@ const TopAppBar: React.FC = () => {
                         aria-label="logo"
                     >
                         <img
-                            src="/android-chrome-192x192.png" // Update this path as needed
+                            src="/android-chrome-192x192.png"
                             alt="Logo"
                             style={{ width: 40, height: 40, objectFit: 'contain' }}
                         />
                     </IconButton>
 
-                    {/* App Name - Hidden on mobile */}
+                    {/* App Name */}
                     {!isMobile && (
                         <Typography
-                            variant="h4"
+                            variant="h5"
                             component="div"
                             sx={{
                                 flexGrow: 1,
-                                fontFamily: '"Gwendolyn", cursive', // Apply Gwendolyn font
                             }}
                         >
                             {t('appName')}
                         </Typography>
                     )}
 
-                    {/* Spacer to push the button to the right */}
-                    {!isMobile && <Box sx={{ flexGrow: 1 }} />}
+                    {/* Spacer */}
+                    <Box sx={{ flexGrow: 1 }} />
+
+                    {/* Social Media Links */}
+                    <IconButton
+                        edge="end"
+                        color="inherit"
+                        href="https://www.facebook.com/profile.php?id=100063605919723"
+                        target="_blank"
+                        aria-label="Facebook"
+                    >
+                        <FacebookIcon />
+                    </IconButton>
+                    <IconButton
+                        edge="end"
+                        color="inherit"
+                        href="https://www.instagram.com/lenkaszucbeauty/"
+                        target="_blank"
+                        aria-label="Instagram"
+                    >                        <InstagramIcon />
+                    </IconButton>
+                    {/* Spacer */}
+                    <Box sx={{ flexGrow: 0.1 }} />
 
                     {/* Login/Logout Button */}
                     {currentUser ? (

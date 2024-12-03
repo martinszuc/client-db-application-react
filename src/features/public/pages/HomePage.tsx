@@ -57,6 +57,22 @@ const HomePage: React.FC = () => {
 
     return (
         <Box>
+            {/* Add salon image */}
+            <Box
+                component="img"
+                src="/assets/salon.webp" // Correct path
+                alt={t('salon')}
+                sx={{
+                    width: isMobile ? '100%' : '80%', // Adjust width as needed
+                    height: isMobile ? '200px' : '400px',
+                    objectFit: 'cover',
+                    mb: 4,
+                    display: 'block',
+                    marginLeft: 'auto',
+                    marginRight: 'auto', // Centers the image
+                }}
+            />
+
             {/* Main Content */}
             <Container
                 maxWidth="lg"
